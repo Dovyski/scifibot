@@ -9,8 +9,8 @@
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.material.min.css">
     <link rel="stylesheet" href="css/framework7.material.colors.min.css">
-    <link rel="stylesheet" href="css/framework7-icons.css">
     <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/material-icons/material-icons.css">
     <link rel="stylesheet" href="css/scifibot.css?20161203">
   </head>
   <body class="layout-dark theme-orange">
@@ -22,41 +22,17 @@
     <div class="panel panel-left panel-reveal">
       <div class="content-block">
         <p>Scifi Bot</p>
-
-        <p><a href="mylist.html" class="menu-item"><i class="f7-icons">collection</i> My list</a></p>
-
-        <p><i class="f7-icons">info</i> Browse content</p>
-        <div class="list-block" style="margin-top: 0;">
-          <ul>
-            <li>
-                <a href="#" class="menu-item" data-action="movies">
-                <div class="item-content">
-                  <div class="item-inner">
-                      <div class="item-title"><i class="f7-icons">chevron_right</i> Movies</div>
-                  </div>
-                </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="menu-item" data-action="series">
-                <div class="item-content">
-                  <div class="item-inner">
-                    <div class="item-title"><i class="f7-icons">chevron_right</i> Series</div>
-                  </div>
-                </div>
-                </a>
-            </li>
-          </ul>
-        </div>
-
-        <p><a href="settings.html" class="menu-item"><i class="f7-icons">filter</i> Settings</a></p>
-        <p><a href="about.html" class="menu-item"><i class="f7-icons">info</i> About</a></p>
+        <p><a href="mylist.html" class="menu-item"><i class="material-icons">collections</i> My list</a></p>
+        <p><a href="#" class="menu-item" data-action="movies"><i class="material-icons">local_movies</i> Movies</a></p>
+        <p><a href="#" class="menu-item" data-action="series"><i class="material-icons">live_tv</i> Series</a></p>
+        <p><a href="settings.html" class="menu-item"><i class="material-icons">settings</i> Settings</a></p>
+        <p><a href="about.html" class="menu-item"><i class="material-icons">info_outline</i> About</a></p>
       </div>
     </div>
     <!-- Right panel with cover effect-->
     <div class="panel panel-right panel-cover">
       <div class="content-block">
-        <p><i class="f7-icons">sort</i> Filter and sorting</p>
+        <p><i class="material-icons">filter_list</i> Filter and sorting</p>
         <div class="list-block" style="margin-top: 0;">
           <ul>
               <li>
@@ -88,8 +64,8 @@
             </div>
             <div class="center" id="navbar-title">Movies</div>
             <div class="right">
-                <a href="#" id="btn-filter" data-panel="right" class="link icon-only open-panel"><i class="f7-icons">sort</i></a>
-                <a href="#" id="btn-search" class="link icon-only"><i class="f7-icons">search</i></a>
+                <a href="#" id="btn-filter" data-panel="right" class="link icon-only open-panel"><i class="material-icons">filter_list</i></a>
+                <a href="#" id="btn-search" class="link icon-only"><i class="material-icons">search</i></a>
             </div>
           </div>
         </div>
@@ -102,7 +78,7 @@
               <div class="content-block-title">Welcome To My Awesome App</div>
 
               <div class="card card-header-pic">
-                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white"><span class="badge-watched"><i class="f7-icons">check</i> WATCHED</span></div>
+                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white"><span class="badge-watched"><i class="material-icons">check</i> WATCHED</span></div>
                 <div class="card-content">
                   <div class="card-content-inner">
                     <p class="color-gray">The Martian, 2016</p>
@@ -110,8 +86,8 @@
                   </div>
                 </div>
                 <div class="card-footer">
-                  <a href="#" class="link item-actions"><i class="f7-icons">menu</i> Actions</a>
-                  <a href="item.html?id=1" class="link item-info">More <i class="f7-icons">chevron_right</i></a>
+                  <a href="#" data-id="1" class="link item-actions"><i class="material-icons">list</i> Actions</a>
+                  <a href="item.html?id=1" class="link item-info">More <i class="material-icons">chevron_right</i></a>
                 </div>
               </div>
             </div>

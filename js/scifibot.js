@@ -31,11 +31,11 @@ function showButtons(theButtonIds) {
 
 function updateNavbar() {
     if(mainView.activePage.name == "index") {
-        $('#btn-menu').html('<i class="icon icon-bars"></i>');
+        $('#btn-menu').html('<i class="material-icons">menu</i>');
         showButtons(['btn-menu', 'btn-filter', 'btn-search']);
 
     } else {
-        $('#btn-menu').html('<i class="icon icon-back"></i>');
+        $('#btn-menu').html('<i class="material-icons">arrow_back</i>');
         hideButtons(['btn-filter', 'btn-search']);
     }
 
@@ -62,46 +62,59 @@ function handleClickMenuItem(theAction) {
     myApp.closePanel();
 }
 
-function initIndexPage(thePage) {
-    $('#btn-menu').on('click', function () {
-        handleClickMainMenuButton();
-    });
+function handleClickItemActions(theEvent) {
+    console.log(theEvent.target.dataset['id']);
 
-    $('#btn-search').on('click', function () {
-        // TODO: implement search
-        alert('Sorry, this feature is not working at the moment.');
-    });
+    var aButtons = [
+        {
+            text: '<i class="material-icons">add</i> Add to my list',
+            onClick: function () {
+                myApp.alert('Button1 clicked');
+            }
+        },
+        {
+            text: '<i class="material-icons">check</i> Mark as watched',
+            onClick: function () {
+                myApp.alert('Button2 clicked');
+            }
+        },
+        {
+            text: '<i class="material-icons">add_alert</i> Follow',
+            onClick: function () {
+                myApp.alert('Button2 clicked');
+            }
+        },
+        {
+            text: '<i class="material-icons">star_half</i> Rate and review',
+            onClick: function () {
+                myApp.alert('Button2 clicked');
+            }
+        },
+        {
+            text: '<i class="material-icons">share</i> Share',
+            onClick: function () {
+                myApp.alert('Button2 clicked');
+            }
+        },
+    ];
+
+    myApp.actions(aButtons);
+}
+
+function handleClickSearchButton() {
+    // TODO: implement search
+    alert('Sorry, this feature is not working at the moment.');
+}
+
+function initIndexPage(thePage) {
+    $('#btn-menu').on('click', handleClickMainMenuButton);
+    $('#btn-search').on('click', handleClickSearchButton);
 
     $('.menu-item').on('click', function () {
         handleClickMenuItem($(this).data('action'));
     });
 
-    // run createContentPage func after link was clicked
-    $('.item-actions').on('click', function () {
-        //- With callbacks on click
-        var buttons = [
-            {
-                text: 'Button1',
-                onClick: function () {
-                    myApp.alert('Button1 clicked');
-                }
-            },
-            {
-                text: 'Button2',
-                onClick: function () {
-                    myApp.alert('Button2 clicked');
-                }
-            },
-            {
-                text: 'Cancel',
-                color: 'red',
-                onClick: function () {
-                    myApp.alert('Cancel clicked');
-                }
-            },
-        ];
-        myApp.actions(buttons);
-    });
+    $('.item-actions').on('click', handleClickItemActions);
 }
 
 function initItemPage(thePage) {

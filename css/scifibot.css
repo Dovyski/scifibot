@@ -17,3 +17,7 @@
 div.watched {
     border: 1px solid green;
 }
+
+.material-icons{
+    vertical-align: middle;
+}
