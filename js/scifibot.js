@@ -43,55 +43,19 @@ function updateNavbar() {
     }
 }
 
-function initPage(thePage) {
-    updateNavbar();
+function handleMenuClick(theAction) {
+    console.debug('Menu', theAction);
 
-    if(thePage == 'index') {
+    if(theAction == 'movies') {
 
-    } else if(thePage == 'item') {
+    } else if(theAction == 'series') {
 
     }
 
-    console.debug('INIT page', thePage);
+    myApp.closePanel();
 }
 
-function handlePageBack() {
-    mainView.router.back();
-    updateNavbar();
-}
-
-// Generate dynamic page
-function createContentPage() {
-	mainView.router.loadContent(
-        '<!-- Top Navbar-->' +
-        //'<div class="navbar">' +
-        //'  <div class="navbar-inner">' +
-        //'    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' +
-        //'    <div class="center sliding">Dynamic Page</div>' +
-        //'  </div>' +
-        //'</div>' +
-        '<div class="pages">' +
-        '  <!-- Page, data-page contains page name-->' +
-        '  <div data-page="dynamic-pages" class="page">' +
-        '    <!-- Scrollable page content-->' +
-        '    <div class="page-content">' +
-        '      <div class="content-block">' +
-        '        <div class="content-block-inner">' +
-        '          <p>Here is a dynamic page created on ' + new Date() + ' !</p>' +
-        '          <p>Go <a href="#" class="back">back</a> or go to <a href="services.html">Services</a>.</p>' +
-        '        </div>' +
-        '      </div>' +
-        '    </div>' +
-        '  </div>' +
-        '</div>'
-    );
-	return;
-}
-
-// Callbacks to run specific code for specific pages
-myApp.onPageInit('index', function (page) {
-    updateNavbar();
-
+function initIndexPage(thePage) {
     $('#btn-back').on('click', function () {
         handlePageBack();
     });
@@ -101,9 +65,8 @@ myApp.onPageInit('index', function (page) {
         alert('Sorry, this feature is not working at the moment.');
     });
 
-    $('.item-info').on('click', function () {
-        console.log('heee');
-        mainView.router.loadContent($('#item-page').html());
+    $('.menu-item').on('click', function () {
+        handleMenuClick($(this).data('action'));
     });
 
     // run createContentPage func after link was clicked
@@ -132,11 +95,42 @@ myApp.onPageInit('index', function (page) {
         ];
         myApp.actions(buttons);
     });
-});
+}
 
+function initItemPage(thePage) {
+    var aItemId = thePage.query.id;
+
+    $('#btn-watch').on('click', function () {
+        console.log('WATCH', aItemId);
+    });
+
+    $('#btn-follow').on('click', function () {
+        console.log('FOLLOW', aItemId);
+    });
+}
+
+function initPage(thePage) {
+    console.debug('INIT page', thePage);
+    updateNavbar();
+
+    if(thePage.name == 'index') {
+        initIndexPage(thePage);
+    } else if(thePage.name == 'item') {
+        initItemPage(thePage);
+    }
+}
+
+function handlePageBack() {
+    mainView.router.back();
+    updateNavbar();
+}
+
+myApp.onPageInit('index', initPage);
 myApp.onPageInit('item', initPage);
 myApp.onPageInit('rate', initPage);
 myApp.onPageInit('similar', initPage);
+myApp.onPageInit('settings', initPage);
+myApp.onPageInit('about', initPage);
 
 //And now we initialize app
 myApp.init();
