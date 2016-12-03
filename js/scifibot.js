@@ -13,16 +13,15 @@ var mainView = myApp.addView('.view-main', {
 });
 
 // Generate dynamic page
-var dynamicPageIndex = 0;
 function createContentPage() {
 	mainView.router.loadContent(
         '<!-- Top Navbar-->' +
-        '<div class="navbar">' +
-        '  <div class="navbar-inner">' +
-        '    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' +
-        '    <div class="center sliding">Dynamic Page ' + (++dynamicPageIndex) + '</div>' +
-        '  </div>' +
-        '</div>' +
+        //'<div class="navbar">' +
+        //'  <div class="navbar-inner">' +
+        //'    <div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>' +
+        //'    <div class="center sliding">Dynamic Page</div>' +
+        //'  </div>' +
+        //'</div>' +
         '<div class="pages">' +
         '  <!-- Page, data-page contains page name-->' +
         '  <div data-page="dynamic-pages" class="page">' +
@@ -43,11 +42,16 @@ function createContentPage() {
 
 // Callbacks to run specific code for specific pages
 myApp.onPageInit('index', function (page) {
-    console.log('ddd');
-    // run createContentPage func after link was clicked
-    $$('.open-movie').on('click', function () {
-        //createContentPage();
+    $$('.back-btn').on('click', function () {
+        mainView.router.back();
+    });
 
+    //$$('.item-info').on('click', function () {
+    //    createContentPage();
+    //});
+
+    // run createContentPage func after link was clicked
+    $$('.item-actions').on('click', function () {
         //- With callbacks on click
         var buttons = [
             {
@@ -72,6 +76,12 @@ myApp.onPageInit('index', function (page) {
         ];
         myApp.actions(buttons);
     });
+});
+
+myApp.onPageInit('item', function (page) {
+     console.log(page);
+
+    $$('.back-btn').show();
 });
 
 //And now we initialize app

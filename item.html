@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.material.min.css">
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/scifibot.css">
+  </head>
+  <body class="layout-dark theme-orange">
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>Left panel content goes here</p>
+      </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right panel content goes here</p>
+      </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, data-page contains page name-->
+          <div data-page="index" class="page">
+              <!-- Floating Action Button -->
+            <a href="#" class="floating-button color-pink">
+               <i class="f7-icons">menu</i>
+            </a>
+
+            <!-- Scrollable page content-->
+            <div class="page-content">
+              <div class="content-block-title">The Martian</div>
+              <div class="card card-header-pic">
+                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white no-border"></div>
+                <div class="card-content-inner">
+                    <a href="#"><i class="f7-icons">sort</i> Watched</a>
+                    <a href="#"><i class="f7-icons">sort</i> Tracking</a>
+                </div>
+              </div>
+
+              <div class="content-block-title">The Martian</div>
+              <div class="content-block">
+                <div class="content-block-inner">
+                    <p class="color-gray">20th Century Fox | October 2, 2015 <br /><i class="f7-icons">star</i> 8/10 <i class="f7-icons">star</i> 92% <i class="f7-icons">star</i> 80%</p>
+                    <p>When astronauts blast off from the planet Mars, they leave behind Mark Watney (Matt Damon), presumed dead after a fierce storm. With only a meager amount of supplies, the stranded visitor must utilize his wits and spirit to find a way to survive on the hostile planet. Meanwhile, back on Earth, members of NASA and a team of international scientists work tirelessly to bring him home, while his crew mates hatch their own plan for a daring rescue mission.</p>
+                </div>
+              </div>
+              <div class="content-block-title">Trailer</div>
+              <div class="content-block">
+                <div class="content-block-inner">
+                    <iframe style="width:100%;height: auto;" src="https://www.youtube.com/embed/ej3ioOneTy8" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                      <a href="about.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title"><i class="f7-icons">compose</i> Rate and review this movie</div>
+                        </div>
+                      </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="services.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title"><i class="f7-icons">sort</i> See similar movies</div>
+                        </div>
+                      </div>
+                      </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/scifibot.js"></script>
+  </body>
+</html>
