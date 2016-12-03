@@ -3,3 +3,7 @@
     background-size: 100%;
     background-position: center;
 }
+
+#btn-back {
+    opacity: 0;
+}
