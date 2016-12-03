@@ -31,19 +31,26 @@ function showButtons(theButtonIds) {
 
 function updateNavbar() {
     if(mainView.activePage.name == "index") {
+        $('#btn-menu').html('<i class="icon icon-bars"></i>');
         showButtons(['btn-menu', 'btn-filter', 'btn-search']);
-        hideButtons(['btn-back']);
 
-        $('#navbar-title').text('Movies');
     } else {
-        showButtons(['btn-back']);
-        hideButtons(['btn-menu', 'btn-filter', 'btn-search']);
+        $('#btn-menu').html('<i class="icon icon-back"></i>');
+        hideButtons(['btn-filter', 'btn-search']);
+    }
 
-        $('#navbar-title').text(mainView.activePage.name);
+    $('#navbar-title').text(mainView.activePage.name);
+}
+
+function handleClickMainMenuButton() {
+    if(mainView.activePage.name == 'index') {
+         myApp.openPanel('left');
+    } else {
+        handlePageBack();
     }
 }
 
-function handleMenuClick(theAction) {
+function handleClickMenuItem(theAction) {
     console.debug('Menu', theAction);
 
     if(theAction == 'movies') {
@@ -56,8 +63,8 @@ function handleMenuClick(theAction) {
 }
 
 function initIndexPage(thePage) {
-    $('#btn-back').on('click', function () {
-        handlePageBack();
+    $('#btn-menu').on('click', function () {
+        handleClickMainMenuButton();
     });
 
     $('#btn-search').on('click', function () {
@@ -66,7 +73,7 @@ function initIndexPage(thePage) {
     });
 
     $('.menu-item').on('click', function () {
-        handleMenuClick($(this).data('action'));
+        handleClickMenuItem($(this).data('action'));
     });
 
     // run createContentPage func after link was clicked
@@ -131,6 +138,7 @@ myApp.onPageInit('rate', initPage);
 myApp.onPageInit('similar', initPage);
 myApp.onPageInit('settings', initPage);
 myApp.onPageInit('about', initPage);
+myApp.onPageInit('mylist', initPage);
 
 //And now we initialize app
 myApp.init();

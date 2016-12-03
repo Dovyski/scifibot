@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
     <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="css/scifibot.css">
+    <link rel="stylesheet" href="css/scifibot.css?20161203">
   </head>
   <body class="layout-dark theme-orange">
     <!-- Status bar overlay for fullscreen mode-->
@@ -23,7 +23,7 @@
       <div class="content-block">
         <p>Scifi Bot</p>
 
-        <p><a href="#" class="menu-item" data-action="my-list"><i class="f7-icons">collection</i> My list</a></p>
+        <p><a href="mylist.html" class="menu-item"><i class="f7-icons">collection</i> My list</a></p>
 
         <p><i class="f7-icons">info</i> Browse content</p>
         <div class="list-block" style="margin-top: 0;">
@@ -56,7 +56,24 @@
     <!-- Right panel with cover effect-->
     <div class="panel panel-right panel-cover">
       <div class="content-block">
-        <p>Right panel content goes here</p>
+        <p><i class="f7-icons">sort</i> Filter and sorting</p>
+        <div class="list-block" style="margin-top: 0;">
+          <ul>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Exclude watched items</div>
+                    <div class="item-input">
+                      <label class="label-switch">
+                        <input type="checkbox"/>
+                        <div class="checkbox"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- Views-->
@@ -67,8 +84,7 @@
         <div class="navbar">
           <div class="navbar-inner">
             <div class="left">
-                <a href="#" id="btn-menu" data-panel="left" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-                <a href="#" id="btn-back" class="link icon-only"><i class="icon icon-back"></i></a>
+                <a href="#" id="btn-menu" data-panel="left" class="link icon-only"><i class="icon icon-bars"></i></a>
             </div>
             <div class="center" id="navbar-title">Movies</div>
             <div class="right">
@@ -86,7 +102,7 @@
               <div class="content-block-title">Welcome To My Awesome App</div>
 
               <div class="card card-header-pic">
-                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white no-border">WATCHED</div>
+                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white"><span class="badge-watched"><i class="f7-icons">check</i> WATCHED</span></div>
                 <div class="card-content">
                   <div class="card-content-inner">
                     <p class="color-gray">The Martian, 2016</p>
