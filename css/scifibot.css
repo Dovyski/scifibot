@@ -4,8 +4,25 @@
     background-position: center;
 }
 
+.card {
+    margin-bottom: 1.4em;
+}
+
 #btn-back {
     opacity: 0;
+}
+
+.item-buttons {
+    height: 1em;
+    width: 100%;
+}
+
+.item-actions {
+    float: left;
+}
+
+.item-info {
+    float: right;
 }
 
 .badge-watched {
@@ -20,4 +37,18 @@ div.watched {
 
 .material-icons{
     vertical-align: middle;
+}
+
+.block-title {
+    font-size: 1.3em;
+}
+
+.infinite-scroll-preloader {
+    margin-top:-20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.infinite-scroll-preloader .preloader {
+    width:34px;
+    height:34px;
 }

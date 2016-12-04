@@ -113,8 +113,6 @@ function initIndexPage(thePage) {
     $('.menu-item').on('click', function () {
         handleClickMenuItem($(this).data('action'));
     });
-
-    $('.item-actions').on('click', handleClickItemActions);
 }
 
 function initItemPage(thePage) {
@@ -145,6 +143,66 @@ function handlePageBack() {
     updateNavbar();
 }
 
+function generateItemCard(theId) {
+    var aHtml = '', aWatched = '';
+
+    aWatched = Math.random() <= 0.5 ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
+
+    aHtml +=
+        '<div class="card card-header-pic">' +
+          '<div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white">' + aWatched + '</div>' +
+          '<div class="card-content">' +
+            '<div class="card-content-inner">' +
+              '<p class="color-gray">The Martian, ' + theId + '</p>' +
+              '<p>When astronauts blast off from the planet Mars, they leave behind Mark Watney (Matt Damon), presumed dead after a fierce storm.</p>' +
+              '<div class="item-buttons">' +
+                '<a href="#" data-id="1" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +
+                '<a href="item.html?id=' + theId + '" class="link item-info">More <i class="material-icons">chevron_right</i></a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+    return aHtml;
+}
+
+
+// Last loaded index
+var lastIndex = $('.card').length;
+
+// Max items to load
+var maxItems = 60;
+
+// Append items per load
+var itemsPerLoad = 20;
+
+function loadItems() {
+    var aDataIsOver = false, aHtml = '';
+
+    if (aDataIsOver) {
+        // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+        myApp.detachInfiniteScroll($('.infinite-scroll'));
+        $('.infinite-scroll-preloader').remove();
+        return;
+    }
+
+    console.debug('lastIndex', lastIndex);
+
+    for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+        aHtml += generateItemCard(i);
+    }
+
+    // Append new items
+    $('.page-content').append(aHtml);
+
+    // Remove any existig click listener, then add a new one
+    $('.item-actions').off('click', handleClickItemActions);
+    $('.item-actions').on('click', handleClickItemActions);
+
+    // Update last loaded index
+    lastIndex = $('.card').length;
+}
+
 myApp.onPageInit('index', initPage);
 myApp.onPageInit('item', initPage);
 myApp.onPageInit('rate', initPage);
@@ -152,6 +210,11 @@ myApp.onPageInit('similar', initPage);
 myApp.onPageInit('settings', initPage);
 myApp.onPageInit('about', initPage);
 myApp.onPageInit('mylist', initPage);
+myApp.onPageInit('notifications', initPage);
+
+// Attach 'infinite' event handler (for infinite scrolling)
+$('.infinite-scroll').on('infinite', loadItems);
 
 //And now we initialize app
 myApp.init();
+loadItems();

@@ -25,6 +25,7 @@
         <p><a href="mylist.html" class="menu-item"><i class="material-icons">collections</i> My list</a></p>
         <p><a href="#" class="menu-item" data-action="movies"><i class="material-icons">local_movies</i> Movies</a></p>
         <p><a href="#" class="menu-item" data-action="series"><i class="material-icons">live_tv</i> Series</a></p>
+        <p><a href="notifications.html" class="menu-item"><i class="material-icons">notifications_none</i> Notifications</a> <span class="badge bg-red">14</span></p>
         <p><a href="settings.html" class="menu-item"><i class="material-icons">settings</i> Settings</a></p>
         <p><a href="about.html" class="menu-item"><i class="material-icons">info_outline</i> About</a></p>
       </div>
@@ -74,21 +75,12 @@
           <!-- Page, data-page contains page name-->
           <div data-page="index" class="page">
             <!-- Scrollable page content-->
-            <div class="page-content">
-              <div class="content-block-title">Welcome To My Awesome App</div>
+            <div class="page-content infinite-scroll" data-distance="200">
+              <div class="content-block-title">List</div>
 
-              <div class="card card-header-pic">
-                <div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white"><span class="badge-watched"><i class="material-icons">check</i> WATCHED</span></div>
-                <div class="card-content">
-                  <div class="card-content-inner">
-                    <p class="color-gray">The Martian, 2016</p>
-                    <p>When astronauts blast off from the planet Mars, they leave behind Mark Watney (Matt Damon), presumed dead after a fierce storm.</p>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <a href="#" data-id="1" class="link item-actions"><i class="material-icons">list</i> Actions</a>
-                  <a href="item.html?id=1" class="link item-info">More <i class="material-icons">chevron_right</i></a>
-                </div>
+              <!-- Preloader -->
+              <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
               </div>
             </div>
           </div>
