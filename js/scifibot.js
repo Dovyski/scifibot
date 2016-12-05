@@ -1,3 +1,5 @@
+var ScifiBot = ScifiBot || {};
+
 // Initialize your app
 var myApp = new Framework7({
     init: false //Disable App's automatica initialization
@@ -113,6 +115,9 @@ function initIndexPage(thePage) {
     $('.menu-item').on('click', function () {
         handleClickMenuItem($(this).data('action'));
     });
+
+    ScifiBot.db.load();
+    loadItems();
 }
 
 function initItemPage(thePage) {
@@ -144,7 +149,12 @@ function handlePageBack() {
 }
 
 function generateItemCard(theId) {
-    var aHtml = '', aWatched = '';
+    var aHtml = '', aWatched = '', aItem = ScifiBot.db.fetch(theId);
+
+    if(!aItem) {
+        console.error('Unknown item with id: ' + theId);
+        return '[Oops, something wrong!]';
+    }
 
     aWatched = Math.random() <= 0.5 ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
 
@@ -176,20 +186,42 @@ var maxItems = 60;
 // Append items per load
 var itemsPerLoad = 20;
 
-function loadItems() {
-    var aDataIsOver = false, aHtml = '';
-
-    if (aDataIsOver) {
-        // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+function setInfiniteScrolling(theStatus) {
+    if(theStatus) {
+        // Attach 'infinite' event handler (for infinite scrolling)
+        $('.infinite-scroll').on('infinite', loadItems);
+    } else {
         myApp.detachInfiniteScroll($('.infinite-scroll'));
         $('.infinite-scroll-preloader').remove();
-        return;
     }
+}
+
+function loadItems() {
+    var aHtml = '',
+        aData = ScifiBot.db.data,
+        i = 0,
+        aLastIdAppended;
 
     console.debug('lastIndex', lastIndex);
 
-    for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
-        aHtml += generateItemCard(i);
+    for(var aId in aData) {
+        console.log(aId, lastIndex, itemsPerLoad);
+        if(aId > lastIndex && i++ < itemsPerLoad) {
+            aHtml += generateItemCard(aId);
+            aLastIdAppended = aId;
+        }
+    }
+
+    // Update last loaded index
+    lastIndex = aLastIdAppended;
+
+    // If the last id in the database equals the last
+    // appended item, then we have nothing else to load.
+    aDataIsOver = aLastIdAppended == aId;
+
+    if (aDataIsOver) {
+        // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+        setInfiniteScrolling(false);
     }
 
     // Append new items
@@ -198,9 +230,6 @@ function loadItems() {
     // Remove any existig click listener, then add a new one
     $('.item-actions').off('click', handleClickItemActions);
     $('.item-actions').on('click', handleClickItemActions);
-
-    // Update last loaded index
-    lastIndex = $('.card').length;
 }
 
 myApp.onPageInit('index', initPage);
@@ -212,9 +241,8 @@ myApp.onPageInit('about', initPage);
 myApp.onPageInit('mylist', initPage);
 myApp.onPageInit('notifications', initPage);
 
-// Attach 'infinite' event handler (for infinite scrolling)
-$('.infinite-scroll').on('infinite', loadItems);
+// Enable infinite scrolling of data
+setInfiniteScrolling(true);
 
 //And now we initialize app
 myApp.init();
-loadItems();
