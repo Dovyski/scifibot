@@ -156,15 +156,15 @@ function generateItemCard(theId) {
         return '[Oops, something wrong!]';
     }
 
-    aWatched = Math.random() <= 0.5 ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
+    aWatched = hasWatchedTitle(theId) ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
 
     aHtml +=
         '<div class="card card-header-pic">' +
           '<div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white">' + aWatched + '</div>' +
           '<div class="card-content">' +
             '<div class="card-content-inner">' +
-              '<p class="color-gray">The Martian, ' + theId + '</p>' +
-              '<p>When astronauts blast off from the planet Mars, they leave behind Mark Watney (Matt Damon), presumed dead after a fierce storm.</p>' +
+              '<p class="color-gray">' + aItem.title + '</p>' +
+              '<p>' + aItem.plot + '</p>' +
               '<div class="item-buttons">' +
                 '<a href="#" data-id="1" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +
                 '<a href="item.html?id=' + theId + '" class="link item-info">More <i class="material-icons">chevron_right</i></a>' +
@@ -196,9 +196,17 @@ function setInfiniteScrolling(theStatus) {
     }
 }
 
+function hasWatchedTitle(theId) {
+    return ScifiBot.db.data.watched[theId];
+}
+
+function isFollowingTitle(theId) {
+    return ScifiBot.db.data.following[theId];
+}
+
 function loadItems() {
     var aHtml = '',
-        aData = ScifiBot.db.data,
+        aData = ScifiBot.db.data.titles,
         i = 0,
         aLastIdAppended;
 

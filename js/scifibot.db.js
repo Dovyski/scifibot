@@ -1,21 +1,31 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
+    this.DATABASE_NAME = 'scifibot_data_20161205';
+
     this.data = null;
+    this.watched = null;
+    this.following = null;
 
     this.load = function() {
-        this.data = JSON.parse(window.localStorage.getItem('data'));
+        this.data = JSON.parse(window.localStorage.getItem(this.DATABASE_NAME));
 
         if(!this.data) {
             console.debug('First time the db is used, adding initial data...');
-            this.data = ScifiBot.DATA;
+            this.data = {
+                titles: ScifiBot.DATA,
+                watched: {},
+                following: {}
+            };
+
+            this.flush();
         }
 
         console.debug('Data loaded from disk', this.data);
     };
 
     this.flush = function() {
-        window.localStorage.setItem('data', JSON.stringify(this.data));
+        window.localStorage.setItem(this.DATABASE_NAME, JSON.stringify(this.data));
         console.debug('Data written to disk');
     };
 
@@ -33,6 +43,6 @@ ScifiBot.db = new function() {
     };
 
     this.fetch = function(theId) {
-        return this.data[theId];
+        return this.data.titles[theId];
     };
 };
