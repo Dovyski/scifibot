@@ -39,7 +39,7 @@ div.watched {
     vertical-align: middle;
 }
 
-.block-title {
+.block-title strong {
     font-size: 1.3em;
 }
 
