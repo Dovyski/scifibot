@@ -122,6 +122,23 @@ function initIndexPage(thePage) {
 
 function initItemPage(thePage) {
     var aItemId = thePage.query.id;
+    var aItem = ScifiBot.db.fetch(aItemId);
+
+    if(!aItem) {
+        console.error('Unable to load item with id: ' + aItemId);
+        return;
+    }
+
+    $('#item-block-title').html('<strong>' + aItem.title + '</strong><br/><p class="color-gray">{publisher} &bull; ' + aItem.released + '</p>');
+
+    $('#item-block-content').html(
+        '<p class="color-gray"><i class="material-icons">star</i> 8/10 <i class="material-icons">star</i> 92% <i class="material-icons">star</i> 80%</p>' +
+        '<p>' + aItem.plot + '</p>'
+    );
+
+    $('a.trailer-link').attr('href', 'https://youtube.com');
+    $('a.rate-link').attr('href', 'rate.html?id=' + aItemId);
+    $('a.similar-link').attr('href', 'similar.html?id=' + aItemId);
 
     $('#btn-watch').on('click', function () {
         console.log('WATCH', aItemId);
