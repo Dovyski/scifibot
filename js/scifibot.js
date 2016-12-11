@@ -120,6 +120,31 @@ function initIndexPage(thePage) {
     loadItems();
 }
 
+function initItemPageInlineButtons(theItem) {
+    $('.item-inline-buttons a').data('item', theItem.id);
+
+    $('#btn-watch')
+        .html(hasWatchedTitle(theItem.id) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">add</i> Not watched')
+        .on('click', function () {
+            console.log('WATCH', $(this).data('item'));
+        });
+
+    $('#btn-follow')
+        .html('<i class="material-icons">add_alert</i> Tracked')
+        .on('click', function () {
+            myApp.addNotification({
+                message: 'You will be notified about important news regarding this title.'
+            });
+            console.log('FOLLOW', $(this).data('item'));
+        });
+
+    $('#btn-list')
+        .html('<i class="material-icons">collections</i> In my list')
+        .on('click', function () {
+            console.log('LIST', $(this).data('item'));
+        });
+}
+
 function initItemPage(thePage) {
     var aItemId = thePage.query.id;
     var aItem = ScifiBot.db.fetch(aItemId);
@@ -140,13 +165,7 @@ function initItemPage(thePage) {
     $('a.rate-link').attr('href', 'rate.html?id=' + aItemId);
     $('a.similar-link').attr('href', 'similar.html?id=' + aItemId);
 
-    $('#btn-watch').on('click', function () {
-        console.log('WATCH', aItemId);
-    });
-
-    $('#btn-follow').on('click', function () {
-        console.log('FOLLOW', aItemId);
-    });
+    initItemPageInlineButtons(aItem);
 }
 
 function initPage(thePage) {
@@ -217,8 +236,16 @@ function hasWatchedTitle(theId) {
     return ScifiBot.db.data.watched[theId];
 }
 
+function setTitleWatchingStatus(theId, theStatus) {
+    ScifiBot.db.data.watched[theId] = theStatus;
+}
+
 function isFollowingTitle(theId) {
     return ScifiBot.db.data.following[theId];
+}
+
+function setTitleFollowingStatus(theId, theStatus) {
+    ScifiBot.db.data.following[theId] = theStatus;
 }
 
 function loadItems() {
