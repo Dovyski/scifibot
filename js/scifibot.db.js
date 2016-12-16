@@ -2,10 +2,7 @@ var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
     this.DATABASE_NAME = 'scifibot_data_20161205';
-
     this.data = null;
-    this.watched = null;
-    this.following = null;
 
     this.load = function() {
         this.data = JSON.parse(window.localStorage.getItem(this.DATABASE_NAME));
@@ -15,7 +12,8 @@ ScifiBot.db = new function() {
             this.data = {
                 titles: ScifiBot.DATA,
                 watched: {},
-                following: {}
+                following: {},
+                list: {}
             };
 
             this.flush();

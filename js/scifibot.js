@@ -120,29 +120,40 @@ function initIndexPage(thePage) {
     loadItems();
 }
 
+function itemPageRefreshInlineButtons() {
+    var aItemId = myApp.mainView.activePage.query.id;
+
+    $('#btn-watch').html(ScifiBot.user.watched(aItemId) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">visibility_off</i> Not watched');
+    $('#btn-follow').html(ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications_active</i> Tracked' : '<i class="material-icons">notifications</i> Not tracked');
+    $('#btn-list').html(ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> In list' : '<i class="material-icons">playlist_add</i> Not in list');
+}
+
 function initItemPageInlineButtons(theItem) {
     $('.item-inline-buttons a').data('item', theItem.id);
 
-    $('#btn-watch')
-        .html(hasWatchedTitle(theItem.id) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">add</i> Not watched')
-        .on('click', function () {
-            console.log('WATCH', $(this).data('item'));
-        });
+    itemPageRefreshInlineButtons();
 
-    $('#btn-follow')
-        .html('<i class="material-icons">add_alert</i> Tracked')
-        .on('click', function () {
+    $('#btn-watch').on('click', function () {
+        ScifiBot.user.toggleWatched(myApp.mainView.activePage.query.id);
+        itemPageRefreshInlineButtons();
+    });
+
+    $('#btn-follow').on('click', function () {
+        var aFollowing = ScifiBot.user.toggleFollowing(myApp.mainView.activePage.query.id);
+
+        if(aFollowing) {
             myApp.addNotification({
                 message: 'You will be notified about important news regarding this title.'
             });
-            console.log('FOLLOW', $(this).data('item'));
-        });
+        }
 
-    $('#btn-list')
-        .html('<i class="material-icons">collections</i> In my list')
-        .on('click', function () {
-            console.log('LIST', $(this).data('item'));
-        });
+        itemPageRefreshInlineButtons();
+    });
+
+    $('#btn-list').on('click', function () {
+        ScifiBot.user.list.toggle(myApp.mainView.activePage.query.id);
+        itemPageRefreshInlineButtons();
+    });
 }
 
 function initItemPage(thePage) {
@@ -192,7 +203,7 @@ function generateItemCard(theId) {
         return '[Oops, something wrong!]';
     }
 
-    aWatched = hasWatchedTitle(theId) ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
+    aWatched = ScifiBot.user.watched(theId) ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
 
     aHtml +=
         '<div class="card card-header-pic">' +
@@ -230,22 +241,6 @@ function setInfiniteScrolling(theStatus) {
         myApp.detachInfiniteScroll($('.infinite-scroll'));
         $('.infinite-scroll-preloader').remove();
     }
-}
-
-function hasWatchedTitle(theId) {
-    return ScifiBot.db.data.watched[theId];
-}
-
-function setTitleWatchingStatus(theId, theStatus) {
-    ScifiBot.db.data.watched[theId] = theStatus;
-}
-
-function isFollowingTitle(theId) {
-    return ScifiBot.db.data.following[theId];
-}
-
-function setTitleFollowingStatus(theId, theStatus) {
-    ScifiBot.db.data.following[theId] = theStatus;
 }
 
 function loadItems() {
