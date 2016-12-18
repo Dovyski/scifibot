@@ -172,6 +172,7 @@ function initItemPage(thePage) {
         return;
     }
 
+    $('#item-card-teaser').css('background-image', 'url(' + aItem.teaser + ')');
     $('#item-block-title').html('<strong>' + aItem.title + '</strong><br/><p class="color-gray">{publisher} &bull; ' + aItem.released + '</p>');
 
     $('#item-block-content').html(
@@ -214,7 +215,7 @@ function generateItemCard(theId) {
 
     aHtml +=
         '<div class="card card-header-pic">' +
-          '<div style="background-image:url(http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg)" valign="bottom" class="card-header color-white">' + aWatched + '</div>' +
+          '<div style="background-image:url(' + aItem.teaser + ')" valign="bottom" class="card-header color-white">' + aWatched + '</div>' +
           '<div class="card-content">' +
             '<div class="card-content-inner">' +
               '<p class="color-gray">' + aItem.title + '</p>' +
