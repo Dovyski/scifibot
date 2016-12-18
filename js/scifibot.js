@@ -1,7 +1,12 @@
 var ScifiBot = ScifiBot || {};
 
+ScifiBot.app = new function() {
+    this.activeItem = null;
+};
+
 // Initialize your app
 var myApp = new Framework7({
+    material: true,
     init: false //Disable App's automatica initialization
 });
 
@@ -65,39 +70,41 @@ function handleClickMenuItem(theAction) {
 }
 
 function handleClickItemActions(theEvent) {
-    console.log(theEvent.target.dataset['id']);
+    var aItemId = theEvent.target.dataset['id'];
+
+    // Use this (ugly) global var to broadcast the information of
+    // which items is being handled at the moment.
+    ScifiBot.app.activeItem = aItemId;
 
     var aButtons = [
         {
-            text: '<i class="material-icons">add</i> Add to my list',
+            text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">remove</i> Remove from my list' : '<i class="material-icons">add</i> Add to my list',
             onClick: function () {
-                myApp.alert('Button1 clicked');
+                ScifiBot.user.list.toggle(ScifiBot.app.activeItem);
+                ScifiBot.app.activeItem = null;
             }
         },
         {
-            text: '<i class="material-icons">check</i> Mark as watched',
+            text: ScifiBot.user.watched(aItemId) ? '<i class="material-icons">remove</i> Mark as not watched' : '<i class="material-icons">check</i> Mark as watched',
             onClick: function () {
-                myApp.alert('Button2 clicked');
+                ScifiBot.user.toggleWatched(ScifiBot.app.activeItem);
+                ScifiBot.app.activeItem = null;
             }
         },
         {
-            text: '<i class="material-icons">add_alert</i> Follow',
+            text: ScifiBot.user.following(aItemId) ? '<i class="material-icons">remove</i> Stop tracking' : '<i class="material-icons">add_alert</i> Track',
             onClick: function () {
-                myApp.alert('Button2 clicked');
+                ScifiBot.user.toggleFollowing(ScifiBot.app.activeItem);
+                ScifiBot.app.activeItem = null;
             }
         },
         {
             text: '<i class="material-icons">star_half</i> Rate and review',
             onClick: function () {
-                myApp.alert('Button2 clicked');
+                myApp.mainView.router.loadPage('rate.html?id=' + ScifiBot.app.activeItem);
+                ScifiBot.app.activeItem = null;
             }
-        },
-        {
-            text: '<i class="material-icons">share</i> Share',
-            onClick: function () {
-                myApp.alert('Button2 clicked');
-            }
-        },
+        }
     ];
 
     myApp.actions(aButtons);
@@ -213,7 +220,7 @@ function generateItemCard(theId) {
               '<p class="color-gray">' + aItem.title + '</p>' +
               '<p>' + aItem.plot + '</p>' +
               '<div class="item-buttons">' +
-                '<a href="#" data-id="1" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +
+                '<a href="#" data-id="' + aItem.id + '" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +
                 '<a href="item.html?id=' + theId + '" class="link item-info">More <i class="material-icons">chevron_right</i></a>' +
               '</div>' +
             '</div>' +

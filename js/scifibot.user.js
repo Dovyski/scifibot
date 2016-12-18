@@ -7,6 +7,7 @@ ScifiBot.user = new function() {
 
     this.setWatched = function(theId, theStatus) {
         ScifiBot.db.data.watched[theId] = theStatus;
+        ScifiBot.db.save();
         console.debug('user.watching', theId, theStatus);
         return theStatus;
     };
@@ -21,6 +22,7 @@ ScifiBot.user = new function() {
 
     this.setFollowing = function(theId, theStatus) {
         ScifiBot.db.data.following[theId] = theStatus;
+        ScifiBot.db.save();
         console.debug('user.following', theId, theStatus);
         return theStatus;
     };
@@ -36,11 +38,13 @@ ScifiBot.user = new function() {
 
         this.add = function(theId) {
             ScifiBot.db.data.list[theId] = theId;
+            ScifiBot.db.save();
             console.debug('user.list.add', theId);
         };
 
         this.remove = function(theId) {
             delete ScifiBot.db.data.list[theId];
+            ScifiBot.db.save();
             console.debug('user.list.remove', theId);
         };
 

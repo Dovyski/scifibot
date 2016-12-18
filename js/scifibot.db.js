@@ -16,13 +16,13 @@ ScifiBot.db = new function() {
                 list: {}
             };
 
-            this.flush();
+            this.save();
         }
 
         console.debug('Data loaded from disk', this.data);
     };
 
-    this.flush = function() {
+    this.save = function() {
         window.localStorage.setItem(this.DATABASE_NAME, JSON.stringify(this.data));
         console.debug('Data written to disk');
     };
