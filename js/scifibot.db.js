@@ -1,7 +1,7 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
-    this.DATABASE_NAME = 'scifibot_data_20161205';
+    this.DATABASE_NAME = 'scifibot_data_20161218';
     this.data = null;
 
     this.load = function() {

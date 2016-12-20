@@ -88,6 +88,7 @@ function handleClickItemActions(theEvent) {
             text: ScifiBot.user.watched(aItemId) ? '<i class="material-icons">remove</i> Mark as not watched' : '<i class="material-icons">check</i> Mark as watched',
             onClick: function () {
                 ScifiBot.user.toggleWatched(ScifiBot.app.activeItem);
+                updateExistingCards(ScifiBot.app.activeItem);
                 ScifiBot.app.activeItem = null;
             }
         },
@@ -204,18 +205,18 @@ function handlePageBack() {
 }
 
 function generateItemCard(theId) {
-    var aHtml = '', aWatched = '', aItem = ScifiBot.db.fetch(theId);
+    var aHtml = '', aItem = ScifiBot.db.fetch(theId);
 
     if(!aItem) {
         console.error('Unknown item with id: ' + theId);
         return '[Oops, something wrong!]';
     }
 
-    aWatched = ScifiBot.user.watched(theId) ? '<span class="watch-status badge-watched"><i class="material-icons">check</i> WATCHED</span>' : '<span class="watch-status"></span>';
-
     aHtml +=
         '<div class="card card-header-pic">' +
-          '<div style="background-image:url(' + aItem.teaser + ')" valign="bottom" class="card-header color-white">' + aWatched + '</div>' +
+          '<div style="background-image:url(' + aItem.teaser + ')" valign="bottom" class="card-header color-white">' +
+            '<span class="watch-status watch-status-' + theId + '" data-id="' + aItem.id + '"></span>' +
+          '</div>' +
           '<div class="card-content">' +
             '<div class="card-content-inner">' +
               '<p class="color-gray">' + aItem.title + '</p>' +
@@ -251,6 +252,26 @@ function setInfiniteScrolling(theStatus) {
     }
 }
 
+function updateWatchedBadge(theItemId) {
+    if(ScifiBot.user.watched(theItemId)) {
+        $('.watch-status-' + theItemId).addClass('badge-watched').html('<i class="material-icons">check</i> WATCHED</span>');
+    } else {
+        $('.watch-status-' + theItemId).removeClass('badge-watched').html('');
+    }
+}
+
+function updateExistingCards(theItemId) {
+    if(theItemId) {
+        // Update the card of an specific item
+        updateWatchedBadge(theItemId);
+    } else {
+        // Update all cards of the app.
+        $('.watch-status').each(function(theKey, theValue) {
+            updateWatchedBadge($(theValue).data('id'));
+        });
+    }
+}
+
 function loadItems() {
     var aHtml = '',
         aData = ScifiBot.db.data.titles,
@@ -281,6 +302,9 @@ function loadItems() {
 
     // Append new items
     $('.page-content').append(aHtml);
+
+    // Updade visual elements of each card, e.g. "watched" badge.
+    updateExistingCards();
 
     // Remove any existig click listener, then add a new one
     $('.item-actions').off('click', handleClickItemActions);

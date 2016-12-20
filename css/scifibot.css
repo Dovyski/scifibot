@@ -1,3 +1,7 @@
+.watch-status {
+    display: none;
+}
+
 .card-header-pic .card-header {
     height: 40vw;
     background-size: 100%;
@@ -38,6 +42,7 @@
     background-color: green;
     padding: 3px 5px 3px 5px;
     color: white;
+    display: block;
 }
 
 div.watched {
