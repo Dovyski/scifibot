@@ -1,6 +1,14 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
+    this.MOVIES = 1;
+    this.SERIES = 2;
+
+    this.TYPE_NAMES = {
+        1: ['Movie', 'Movies'],
+        2: ['TV show', 'Series']
+    };
+
     this.DATABASE_NAME = 'scifibot_data_20161218';
     this.data = null;
 
@@ -46,7 +54,7 @@ ScifiBot.db = new function() {
 
     this.find = function(theFields) {
         var aRet = {};
-        var aType = theFields['type'] || 1;
+        var aType = theFields['type'] || this.MOVIES;
 
         for(var aId in this.data.titles) {
             if(this.data.titles[aId].type == aType) {

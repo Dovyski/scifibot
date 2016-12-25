@@ -26,6 +26,7 @@ ScifiBot.page.item = new function() {
         $('a.similar-link').attr('href', 'similar.html?id=' + aItemId);
 
         this.initInlineButtons(aItem);
+        ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[aItem.type][0]);
     };
 
     this.refreshInlineButtons = function() {

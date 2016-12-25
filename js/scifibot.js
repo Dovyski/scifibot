@@ -47,7 +47,11 @@ ScifiBot.app = new function() {
             this.hideButtons(['btn-filter', 'btn-search']);
         }
 
-        $('#navbar-title').text(this.views.main.activePage.name);
+        this.setNavbarTitle(this.views.main.activePage.name);
+    };
+
+    this.setNavbarTitle = function(theString) {
+        $('#navbar-title').text(theString);
     };
 
     this.hideButtons = function(theButtonIds) {

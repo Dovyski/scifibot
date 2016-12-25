@@ -122,9 +122,11 @@ ScifiBot.page.index = new function() {
         });
 
         this.lastId = -1;
-        this.type = thePage.query.type;
+        this.type = thePage.query.type || ScifiBot.db.MOVIES;
 
         this.setInfiniteScrolling();
         this.loadItems();
+
+        ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[this.type][1]);
     };
 };
