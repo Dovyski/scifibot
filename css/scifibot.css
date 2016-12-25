@@ -1,3 +1,11 @@
+.notification-item {
+    background: #fff;
+}
+
+.notification-item .item-title {
+    color: #000;
+}
+
 .watch-status {
     display: none;
 }

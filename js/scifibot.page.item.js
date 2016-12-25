@@ -34,6 +34,8 @@ ScifiBot.page.item = new function() {
         $('#btn-watch').html(ScifiBot.user.watched(aItemId) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">visibility_off</i> Not watched');
         $('#btn-follow').html(ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications_active</i> Tracked' : '<i class="material-icons">notifications</i> Not tracked');
         $('#btn-list').html(ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> In list' : '<i class="material-icons">playlist_add</i> Not in list');
+
+        ScifiBot.app.updateExistingCards(aItemId);
     };
 
     this.initInlineButtons = function(theItem) {
@@ -53,7 +55,11 @@ ScifiBot.page.item = new function() {
 
             if(aFollowing) {
                 ScifiBot.app.core.addNotification({
-                    message: 'You will be notified about important news regarding this title.'
+                    message: 'You will be notified about important news regarding this title.',
+                    button: {
+                        text: 'CLOSE',
+                        color: 'orange'
+                    }
                 });
             }
 
