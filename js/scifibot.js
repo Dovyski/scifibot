@@ -118,7 +118,7 @@ ScifiBot.app = new function() {
 
 for(var aPageId in ScifiBot.app.pages) {
     ScifiBot.app.core.onPageInit(aPageId, function(thePage) {
-        console.debug('scifibot.onPageInit', thePage.name, ScifiBot.app.pages[thePage.name]);
+        console.debug('scifibot.onPageInit', thePage.name, ScifiBot.app.pages[thePage.name], thePage);
 
         ScifiBot.app.updateNavbar();
 
@@ -129,4 +129,5 @@ for(var aPageId in ScifiBot.app.pages) {
 }
 
 // Initialize app and start the party \m/
+ScifiBot.db.load();
 ScifiBot.app.core.init();

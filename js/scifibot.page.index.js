@@ -3,6 +3,7 @@ ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.index = new function() {
     this.lastId = -1;           // If of Last loaded item
+    this.type = 2;              // Type of titles to be displayed in the page.
     this.itemsPerLoad = 20;     // Append items per load
 
     this.handleClickMainMenuButton = function() {
@@ -18,18 +19,6 @@ ScifiBot.page.index = new function() {
         alert('Sorry, this feature is not working at the moment.');
     };
 
-    this.handleClickMenuItem = function(theAction) {
-        console.debug('Menu', theAction);
-
-        if(theAction == 'movies') {
-
-        } else if(theAction == 'series') {
-
-        }
-
-        ScifiBot.app.core.closePanel();
-    };
-
     this.setInfiniteScrolling = function(theStatus) {
         if(theStatus) {
             // Attach 'infinite' event handler (for infinite scrolling)
@@ -42,7 +31,7 @@ ScifiBot.page.index = new function() {
 
     this.loadItems = function() {
         var aHtml = '',
-            aData = ScifiBot.db.data.titles,
+            aData = ScifiBot.db.find({type: this.type}),
             i = 0,
             aLastIdAppended;
 
@@ -68,7 +57,7 @@ ScifiBot.page.index = new function() {
         }
 
         // Append new items
-        $('.page-content').append(aHtml);
+        $('.index-content').append(aHtml);
 
         // Updade visual elements of each card, e.g. "watched" badge.
         ScifiBot.app.updateExistingCards();
@@ -129,10 +118,12 @@ ScifiBot.page.index = new function() {
         $('#btn-search').on('click', this.handleClickSearchButton);
 
         $('.menu-item').on('click', function () {
-            aSelf.handleClickMenuItem($(this).data('action'));
+            ScifiBot.app.core.closePanel();
         });
 
-        ScifiBot.db.load();
+        this.lastId = -1;
+        this.type = thePage.query.type;
+
         this.setInfiniteScrolling();
         this.loadItems();
     };

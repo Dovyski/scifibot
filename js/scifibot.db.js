@@ -43,4 +43,17 @@ ScifiBot.db = new function() {
     this.fetch = function(theId) {
         return this.data.titles[theId];
     };
+
+    this.find = function(theFields) {
+        var aRet = {};
+        var aType = theFields['type'] || 1;
+
+        for(var aId in this.data.titles) {
+            if(this.data.titles[aId].type == aType) {
+                aRet[aId] = this.data.titles[aId];
+            }
+        }
+
+        return aRet;
+    };
 };
