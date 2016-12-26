@@ -1,5 +1,5 @@
 CREATE TABLE `titles` (
-	`id`	INTEGER NOT NULL,
+	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`type`	INTEGER NOT NULL DEFAULT 1,
 	`name`	TEXT NOT NULL,
 	`publisher`	TEXT,
@@ -14,7 +14,9 @@ CREATE TABLE `titles` (
 	`imdb_rating`	REAL,
 	`metascore`	INTEGER,
 	`rotten_tomatoes`	REAL,
-	PRIMARY KEY(id)
+	`modified`	INTEGER
 );
+
+CREATE INDEX modified_idx ON titles (modified);
 
 INSERT into titles (name) VALUES ('Test');
