@@ -132,6 +132,11 @@ for(var aPageId in ScifiBot.app.pages) {
     });
 }
 
+// Set a global error handler, not connected to the app itself.
+window.onerror = function (theMsg, theURL, theLineNo, theColumnNo, theError)  {
+    window.location.href = 'error.html';
+};
+
 // Initialize app and start the party \m/
 ScifiBot.db.load();
 ScifiBot.app.core.init();

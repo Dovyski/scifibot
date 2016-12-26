@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.material.min.css">
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/material-icons/material-icons.css">
+    <link rel="stylesheet" href="css/scifibot.css?20161203">
+  </head>
+  <body class="layout-dark theme-orange">
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages">
+          <!-- Page, data-page contains page name-->
+          <div data-page="error" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content" style="text-align:center; margin-top: 25%;">
+                <div class="content-block">
+                    <i class="material-icons" style="font-size: 8em;">error_outline</i>
+                </div>
+                <div class="content-block">
+                    Oops! Something very wrong just happened. Sorry for that! The problem has been reported. Hopefully it will be fixed soon.
+                </div>
+                <div class="content-block">
+                    <a href="index.html">Tap here to return</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

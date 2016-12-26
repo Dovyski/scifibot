@@ -21,7 +21,7 @@ ScifiBot.db = new function() {
         2: ['TV show', 'Series']
     };
 
-    this.DATABASE_NAME = 'scifibot_data_20161218';
+    this.DATABASE_NAME = 'scifibot_data_20161226';
     this.data = null;
 
     this.load = function() {
