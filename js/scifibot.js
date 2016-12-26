@@ -13,7 +13,7 @@ ScifiBot.app = new function() {
         item: ScifiBot.page.item,
         rate: null,
         similar: null,
-        settings: null,
+        settings: ScifiBot.page.settings,
         about: null,
         mylist: null,
         notifications: null

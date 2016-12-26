@@ -1,9 +1,21 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
+    this.INITIAL_DATA = {
+        titles: ScifiBot.DATA,
+        watched: {},
+        following: {},
+        list: {},
+        settings: {
+            sync: true,
+            notifyNewTitles: true,
+            notifyTrackedTitles: true,
+            useDeviceNotifications: true
+        }
+    };
+
     this.MOVIES = 1;
     this.SERIES = 2;
-
     this.TYPE_NAMES = {
         1: ['Movie', 'Movies'],
         2: ['TV show', 'Series']
@@ -17,13 +29,7 @@ ScifiBot.db = new function() {
 
         if(!this.data) {
             console.debug('First time the db is used, adding initial data...');
-            this.data = {
-                titles: ScifiBot.DATA,
-                watched: {},
-                following: {},
-                list: {}
-            };
-
+            this.data = this.INITIAL_DATA;
             this.save();
         }
 
