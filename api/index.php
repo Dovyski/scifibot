@@ -31,7 +31,7 @@ switch ($aMethod) {
 			$aReturn['message'] = 'Missing or invalid "since" param (since=' . $aSince . ')';
 
 		} else {
-			$aStmt = $aDb->prepare("SELECT * FROM titles WHERE modified >= :since");
+			$aStmt = $aDb->prepare("SELECT * FROM titles WHERE modified > :since");
 
 			$aStmt->bindParam(':since', $aSince);
 			$aStmt->execute();

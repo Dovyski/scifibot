@@ -86,7 +86,7 @@ ScifiBot.app = new function() {
               '</div>' +
               '<div class="card-content">' +
                 '<div class="card-content-inner">' +
-                  '<p class="color-gray">' + aItem.title + '</p>' +
+                  '<p class="color-gray">' + aItem.name + '</p>' +
                   '<p>' + aItem.plot + '</p>' +
                   '<div class="item-buttons">' +
                     '<a href="#" data-id="' + aItem.id + '" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +

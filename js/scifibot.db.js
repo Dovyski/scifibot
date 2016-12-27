@@ -11,7 +11,8 @@ ScifiBot.db = new function() {
             notifyNewTitles: true,
             notifyTrackedTitles: true,
             useDeviceNotifications: true,
-            lastTitleTimestamp: 0
+            syncModified: 0,
+            lastSync: 0
         }
     };
 

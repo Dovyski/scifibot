@@ -14,7 +14,7 @@ ScifiBot.page.item = new function() {
         }
 
         $('#item-card-teaser').css('background-image', 'url(' + aItem.teaser + ')');
-        $('#item-block-title').html('<strong>' + aItem.title + '</strong><br/><p class="color-gray">{publisher} &bull; ' + aItem.released + '</p>');
+        $('#item-block-title').html('<strong>' + aItem.name + '</strong><br/><p class="color-gray">{publisher} &bull; ' + aItem.released + '</p>');
 
         $('#item-block-content').html(
             '<p class="color-gray"><i class="material-icons">star</i> 8/10 <i class="material-icons">star</i> 92% <i class="material-icons">star</i> 80%</p>' +

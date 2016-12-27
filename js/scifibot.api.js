@@ -30,11 +30,4 @@ ScifiBot.api = new function() {
             success: this.handleSuccess,
         });
     };
-
-    this.sync = function() {
-        this.invoke({
-            method: 'sync',
-            since: ScifiBot.db.data.settings.lastTitleTimestamp || 0
-        });
-    };
 };
