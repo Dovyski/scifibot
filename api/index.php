@@ -4,7 +4,7 @@
 include(dirname(__FILE__) . '/config.php');
 
 $aMethod = isset($_REQUEST['method']) ? $_REQUEST['method'] : '';
-$aReturn = array('success' => true);
+$aReturn = array('success' => true, 'method' => $aMethod);
 
 $aDb = new PDO('sqlite:' . DB_FILE);
 $aDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -27,7 +27,8 @@ switch ($aMethod) {
 		$aSince = isset($_REQUEST['since']) ? $_REQUEST['since'] : '';
 
 		if($aSince == '') {
-			$aReturn = array('failure' => true, 'message' => 'Missing or invalid "since" param.');
+			$aReturn['success'] = false;
+			$aReturn['message'] = 'Missing or invalid "since" param (since=' . $aSince . ')';
 
 		} else {
 			$aStmt = $aDb->prepare("SELECT * FROM titles WHERE modified >= :since");
