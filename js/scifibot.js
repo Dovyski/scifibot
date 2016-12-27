@@ -118,6 +118,33 @@ ScifiBot.app = new function() {
             });
         }
     };
+
+    this.handleClickMainMenuButton = function() {
+        if(ScifiBot.app.views.main.activePage.name == 'index') {
+             ScifiBot.app.core.openPanel('left');
+        } else {
+            ScifiBot.app.handlePageBack();
+        }
+    };
+
+    this.handleClickSearchButton = function() {
+        // TODO: implement search
+        alert('Sorry, this feature is not working at the moment.');
+    };
+
+    this.initUI = function() {
+        $('a.menu-item').on('click', function() {
+            ScifiBot.app.core.closePanel();
+            ScifiBot.app.views.main.router.load({
+                url: $(this).data('url'),
+                ignoreCache: true
+            });
+            console.debug('Menu click');
+        });
+
+        $('#btn-menu').on('click', this.handleClickMainMenuButton);
+        $('#btn-search').on('click', this.handleClickSearchButton);
+    };
 };
 
 for(var aPageId in ScifiBot.app.pages) {
@@ -140,3 +167,4 @@ window.onerror = function (theMsg, theURL, theLineNo, theColumnNo, theError)  {
 // Initialize app and start the party \m/
 ScifiBot.db.load();
 ScifiBot.app.core.init();
+ScifiBot.app.initUI();

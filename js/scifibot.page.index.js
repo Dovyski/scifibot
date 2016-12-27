@@ -7,19 +7,6 @@ ScifiBot.page.index = new function() {
     this.myList = false;        // If the page is working to show the list of title in user's "My list".
     this.itemsPerLoad = 20;     // Append items per load
 
-    this.handleClickMainMenuButton = function() {
-        if(ScifiBot.app.views.main.activePage.name == 'index') {
-             ScifiBot.app.core.openPanel('left');
-        } else {
-            ScifiBot.app.handlePageBack();
-        }
-    };
-
-    this.handleClickSearchButton = function() {
-        // TODO: implement search
-        alert('Sorry, this feature is not working at the moment.');
-    };
-
     this.setInfiniteScrolling = function(theStatus) {
         if(theStatus) {
             // Attach 'infinite' event handler (for infinite scrolling)
@@ -87,7 +74,11 @@ ScifiBot.page.index = new function() {
 
         if(aHtml == '') {
             // No items in my list, very sad :(
-            aHtml = 'No items :(';
+            aHtml =
+                '<div class="content-block" style="text-align: center; margin-top: 20%;">' +
+                    '<i class="material-icons" style="font-size: 8em;">info_outline</i><br />' +
+                    'Your queue is empty.<br />Find a <a href="index.html?type=1">movie</a> or a <a href="index.html?type=2">series</a> to watch.' +
+                '</div>';
         }
 
         // Append new items
@@ -164,16 +155,7 @@ ScifiBot.page.index = new function() {
     };
 
     this.init = function(thePage) {
-        var aSelf = this;
-
         console.debug('scifibot.page.index.init()', thePage);
-
-        $('#btn-menu').on('click', this.handleClickMainMenuButton);
-        $('#btn-search').on('click', this.handleClickSearchButton);
-
-        $('.menu-item').on('click', function () {
-            ScifiBot.app.core.closePanel();
-        });
 
         this.lastId = -1;
         this.type = thePage.query.type || ScifiBot.db.MOVIES;
