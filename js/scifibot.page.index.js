@@ -4,6 +4,7 @@ ScifiBot.page = ScifiBot.page || {};
 ScifiBot.page.index = new function() {
     this.lastId = -1;           // If of Last loaded item
     this.type = 2;              // Type of titles to be displayed in the page.
+    this.myList = false;        // If the page is working to show the list of title in user's "My list".
     this.itemsPerLoad = 20;     // Append items per load
 
     this.handleClickMainMenuButton = function() {
@@ -29,7 +30,13 @@ ScifiBot.page.index = new function() {
         }
     };
 
-    this.loadItems = function() {
+    this.updateCardItemListeners = function() {
+        // Remove any existig click listener, then add a new one
+        $('.item-actions').off('click', this.handleClickItemActions);
+        $('.item-actions').on('click', this.handleClickItemActions);
+    };
+
+    this.loadItemsByType = function() {
         var aHtml = '',
             aData = ScifiBot.db.find({type: this.type}),
             i = 0,
@@ -61,10 +68,46 @@ ScifiBot.page.index = new function() {
 
         // Updade visual elements of each card, e.g. "watched" badge.
         ScifiBot.app.updateExistingCards();
+        this.updateCardItemListeners();
+    };
 
-        // Remove any existig click listener, then add a new one
-        $('.item-actions').off('click', this.handleClickItemActions);
-        $('.item-actions').on('click', this.handleClickItemActions);
+    this.loadItemsIntoMyList = function() {
+        var aHtml = '',
+            aMyListItems = ScifiBot.user.list.all(),
+            aId = 0;
+
+        console.debug('scifibot.page.index.myList', this.myList);
+
+        // No infinite scrolling while browsing my list.
+        this.setInfiniteScrolling(false);
+
+        for(aId in aMyListItems) {
+            aHtml += ScifiBot.app.generateItemCard(aId);
+        }
+
+        if(aHtml == '') {
+            // No items in my list, very sad :(
+            aHtml = 'No items :(';
+        }
+
+        // Append new items
+        $('.index-content').append(aHtml);
+
+        // Updade visual elements of each card, e.g. "watched" badge.
+        ScifiBot.app.updateExistingCards();
+        this.updateCardItemListeners();
+    };
+
+    this.loadItems = function() {
+        // Let's load titles according to the specified behavior.
+        // If this is the myList mode, we load the titles in the
+        // user's queue, otherwise we load all titles that match
+        // the informed type.
+        if(this.myList) {
+            this.loadItemsIntoMyList();
+        } else {
+            this.loadItemsByType();
+        }
     };
 
     this.handleClickItemActions = function(theEvent) {
@@ -109,6 +152,17 @@ ScifiBot.page.index = new function() {
         ScifiBot.app.core.actions(aButtons);
     };
 
+    this.removeContent = function() {
+        // Clear the content of the page and add
+        // the bare minimum to allow new content.
+        $('.index-content').empty().html(
+            // Page title, to push content a bit down
+            '<div class="content-block-title">List</div>' +
+            // Infinite scrolling preloader
+            '<div class="infinite-scroll-preloader"><div class="preloader"></div></div>'
+        );
+    };
+
     this.init = function(thePage) {
         var aSelf = this;
 
@@ -123,10 +177,19 @@ ScifiBot.page.index = new function() {
 
         this.lastId = -1;
         this.type = thePage.query.type || ScifiBot.db.MOVIES;
+        this.myList = thePage.query.myList;
 
+        // Clear any previously loaded content
+        this.removeContent();
         this.setInfiniteScrolling();
         this.loadItems();
 
-        ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[this.type][1]);
+        if(this.myList) {
+            // User is browing "My list"
+            ScifiBot.app.setNavbarTitle("My list");
+        } else {
+            // User is browsing some type of title.
+            ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[this.type][1]);
+        }
     };
 };

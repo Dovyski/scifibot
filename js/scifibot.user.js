@@ -48,6 +48,10 @@ ScifiBot.user = new function() {
             console.debug('user.list.remove', theId);
         };
 
+        this.all = function() {
+            return ScifiBot.db.data.list;
+        };
+
         this.toggle = function(theId) {
             var aHas = this.has(theId);
 
