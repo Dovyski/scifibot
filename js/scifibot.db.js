@@ -6,14 +6,7 @@ ScifiBot.db = new function() {
         watched: {},
         following: {},
         list: {},
-        settings: {
-            sync: true,
-            notifyNewTitles: true,
-            notifyTrackedTitles: true,
-            useDeviceNotifications: true,
-            syncModified: 0,
-            lastSync: 0
-        }
+        settings: ScifiBot.config.SETTINGS
     };
 
     this.MOVIES = 1;
@@ -23,24 +16,23 @@ ScifiBot.db = new function() {
         2: ['TV show', 'Series']
     };
 
-    this.DATABASE_NAME = 'scifibot_data_20161226';
     this.data = null;
 
     this.load = function() {
-        this.data = JSON.parse(window.localStorage.getItem(this.DATABASE_NAME));
+        this.data = JSON.parse(window.localStorage.getItem(ScifiBot.config.DATABASE_NAME));
 
         if(!this.data) {
-            console.debug('First time the db is used, adding initial data...');
+            console.debug('ScifiBot.db.load() - first time the db is used, adding initial data.');
             this.data = this.INITIAL_DATA;
             this.save();
         }
 
-        console.debug('Data loaded from disk', this.data);
+        console.debug('ScifiBot.db.load() - data loaded from disk');
     };
 
     this.save = function() {
-        window.localStorage.setItem(this.DATABASE_NAME, JSON.stringify(this.data));
-        console.debug('Data written to disk');
+        window.localStorage.setItem(ScifiBot.config.DATABASE_NAME, JSON.stringify(this.data));
+        console.debug('ScifiBot.db.save() - data written to disk.');
     };
 
     this.update = function(theObject) {
