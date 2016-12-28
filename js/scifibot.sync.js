@@ -73,12 +73,12 @@ ScifiBot.sync = new function() {
 
     // Performs a sync operation online, using the REST API as a source of
     // information.
-    this.onlineRun = function() {
+    this.onlineRun = function(theCallback) {
         console.debug('ScifiBot.sync.onlineRun() - Starting online sync.');
 
         ScifiBot.api.invoke({
             method: 'sync',
-            since: ScifiBot.db.data.settings.syncModified || 0
-        });
+            since: ScifiBot.db.data.settings.syncModified || 0,
+        }, theCallback);
     };
 };

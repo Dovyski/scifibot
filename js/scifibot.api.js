@@ -19,7 +19,7 @@ ScifiBot.api = new function() {
         }
     };
 
-    this.invoke = function(theParams) {
+    this.invoke = function(theParams, theCallback) {
         $.ajax({
             url: this.API_ENDPOINT,
             method: 'GET',
@@ -28,6 +28,7 @@ ScifiBot.api = new function() {
             cache: false,
             error: this.handleError,
             success: this.handleSuccess,
+            complete: theCallback
         });
     };
 };
