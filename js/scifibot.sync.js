@@ -5,8 +5,15 @@ ScifiBot.sync = new function() {
         console.debug('Notify user about new content');
     };
 
-    this.handleNewTitles = function(theTitles) {
+    this.handleNewTitles = function(theTitles, theTimestamp) {
         var i, aLength = theTitles.length, aModified = 0;
+
+        // First of all, save the time this sync was performed
+        // using the server time, so there is no disagreement between
+        // client/server time.
+        if(theTimestamp && theTimestamp > 0) {
+            ScifiBot.db.data.settings.lastSync = theTimestamp;
+        }
 
         if(aLength == 0) {
             console.debug('ScifiBot.sync.handleNewTitles() - No new info received from server. Sync skipped.');
@@ -21,8 +28,6 @@ ScifiBot.sync = new function() {
             if(ScifiBot.user.following(aTitle.id)) {
                 this.handleNewContentNotifiation(ScifiBot.db.data.titles[aTitle.id], aTitle);
             }
-
-            aTitle.modified = parseInt(aTitle.modified);
 
             // Save the most recent timestamp regading modifications.
             // It will be used in the future to request only the data
@@ -43,7 +48,5 @@ ScifiBot.sync = new function() {
             method: 'sync',
             since: ScifiBot.db.data.settings.syncModified || 0
         });
-
-        ScifiBot.db.data.settings.lastSync = (Date.now() / 1000) | 0;
     };
 };

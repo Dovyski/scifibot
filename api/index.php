@@ -4,7 +4,7 @@
 include(dirname(__FILE__) . '/config.php');
 
 $aMethod = isset($_REQUEST['method']) ? $_REQUEST['method'] : '';
-$aReturn = array('success' => true, 'method' => $aMethod);
+$aReturn = array('success' => true, 'method' => $aMethod, 'timestamp' => time());
 
 $aDb = new PDO('sqlite:' . DB_FILE);
 $aDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -52,6 +52,6 @@ switch ($aMethod) {
 }
 
 header('Content-Type: application/json');
-echo json_encode($aReturn);
+echo json_encode($aReturn, JSON_NUMERIC_CHECK);
 
 ?>

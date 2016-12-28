@@ -14,7 +14,7 @@ ScifiBot.api = new function() {
             console.error('API error: ', theResponse.message);
         } else {
             if(theResponse.method == 'sync') {
-                ScifiBot.sync.handleNewTitles(theResponse.data);
+                ScifiBot.sync.handleNewTitles(theResponse.data, theResponse.timestamp);
             }
         }
     };
