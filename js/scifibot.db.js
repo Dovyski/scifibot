@@ -2,7 +2,7 @@ var ScifiBot = ScifiBot || {};
 
 ScifiBot.db = new function() {
     this.INITIAL_DATA = {
-        titles: ScifiBot.DATA,
+        titles: ScifiBot.config.DATABASE_DATA,
         watched: {},
         following: {},
         list: {},
@@ -36,16 +36,20 @@ ScifiBot.db = new function() {
     };
 
     this.update = function(theObject) {
-        var aId = theObject.id, aSuccess = false;
+        var aId = theObject.id, aCreated = false;
 
-        if(this.data[aId]) {
-            for(var aProp in theObject) {
-                this.data[aId][aProp] = theObject[aProp];
-            }
-            aSuccess = true;
+        if(!this.data.titles[aId]) {
+            this.data.titles[aId] = {};
+            aCreated = true;
         }
 
-        return aSuccess;
+        for(var aProp in theObject) {
+            this.data.titles[aId][aProp] = theObject[aProp];
+        }
+
+        console.debug('ScifiBot.db.update() - ' + (aCreated ? 'created title with id=' : 'updated title with id=') + aId);
+
+        return aCreated;
     };
 
     this.fetch = function(theId) {

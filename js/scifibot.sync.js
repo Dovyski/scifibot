@@ -12,7 +12,7 @@ ScifiBot.sync = new function() {
         // using the server time, so there is no disagreement between
         // client/server time.
         if(theTimestamp && theTimestamp > 0) {
-            ScifiBot.db.data.settings.lastSync = theTimestamp;
+            ScifiBot.app.settings().lastSync = theTimestamp;
         }
 
         if(aLength == 0) {
@@ -26,7 +26,7 @@ ScifiBot.sync = new function() {
             // If the user is following the title, we must create
             // a notification because there is somthing new.
             if(ScifiBot.user.following(aTitle.id)) {
-                this.handleNewContentNotifiation(ScifiBot.db.data.titles[aTitle.id], aTitle);
+                this.handleNewContentNotifiation(ScifiBot.db.fetch(aTitle.id), aTitle);
             }
 
             // Save the most recent timestamp regading modifications.
@@ -36,14 +36,46 @@ ScifiBot.sync = new function() {
                 aModified = aTitle.modified;
             }
 
-            ScifiBot.db.data.titles[aTitle.id] = aTitle;
+            ScifiBot.db.update(aTitle);
         }
 
-        ScifiBot.db.data.settings.syncModified = aModified;
+        ScifiBot.app.settings().syncModified = aModified;
         ScifiBot.db.save();
     };
 
-    this.run = function() {
+    // Performs a sync operation offline, using the data from ScifiBot.DATA
+    // as a source of information.
+    this.offlineRun = function() {
+        var aItemsToUpdate = [];
+
+        if(ScifiBot.config.DATABASE_VERSION <= ScifiBot.app.settings().databaseVersion) {
+            console.debug('ScifiBot.sync.offlineRun() - Installed db is up to date, offline sync skipped.');
+            return;
+        }
+
+        console.debug('ScifiBot.sync.offlineRun() - performing sync.');
+
+        for(var aId in ScifiBot.config.DATABASE_DATA) {
+            var aNewTitle = ScifiBot.config.DATABASE_DATA[aId], aOldTitle = ScifiBot.db.fetch(aId);
+
+            if(aNewTitle.modified > aOldTitle.modified) {
+                aItemsToUpdate.push(aNewTitle);
+            }
+        }
+
+        if(aItemsToUpdate.length > 0) {
+            this.handleNewTitles(aItemsToUpdate);
+        }
+
+        ScifiBot.app.settings().databaseVersion = ScifiBot.config.DATABASE_VERSION;
+        ScifiBot.db.save();
+    };
+
+    // Performs a sync operation online, using the REST API as a source of
+    // information.
+    this.onlineRun = function() {
+        console.debug('ScifiBot.sync.onlineRun() - Starting online sync.');
+
         ScifiBot.api.invoke({
             method: 'sync',
             since: ScifiBot.db.data.settings.syncModified || 0

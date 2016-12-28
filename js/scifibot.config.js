@@ -5,7 +5,7 @@ ScifiBot.config = {
     DATABASE_NAME: 'scifibot_data_20161227',
 
     // Version of the database shipped along with the app.
-    DATABASE_VERSION: 1,
+    DATABASE_VERSION: 3,
 
     // Default settings
     SETTINGS: {

@@ -145,6 +145,10 @@ ScifiBot.app = new function() {
         $('#btn-menu').on('click', this.handleClickMainMenuButton);
         $('#btn-search').on('click', this.handleClickSearchButton);
     };
+
+    this.settings = function() {
+        return ScifiBot.db.data.settings;
+    };
 };
 
 for(var aPageId in ScifiBot.app.pages) {
@@ -164,7 +168,11 @@ window.onerror = function (theMsg, theURL, theLineNo, theColumnNo, theError)  {
     window.location.href = 'error.html';
 };
 
-// Initialize app and start the party \m/
+// Check if the database being used is the most recent one.
+// If it is not, update it based on the database shipped with the app.
 ScifiBot.db.load();
+ScifiBot.sync.offlineRun();
+
+// Initialize app and start the party \m/
 ScifiBot.app.core.init();
 ScifiBot.app.initUI();
