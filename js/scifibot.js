@@ -16,7 +16,7 @@ ScifiBot.app = new function() {
         settings: ScifiBot.page.settings,
         about: null,
         mylist: null,
-        notifications: null
+        notifications: ScifiBot.page.notifications
     };
 
     // Framework7 access point
