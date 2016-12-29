@@ -39,7 +39,7 @@ ScifiBot.app = new function() {
 
     this.updateNavbar = function() {
         if(this.views.main.activePage.name == "index") {
-            $('#btn-menu').html('<i class="material-icons">menu</i>');
+            $('#btn-menu').html('<i class="material-icons">menu</i> <span class="notifications-count badge bg-red"></span>');
             this.showButtons(['btn-menu', 'btn-filter', 'btn-search']);
 
         } else {
@@ -144,10 +144,72 @@ ScifiBot.app = new function() {
 
         $('#btn-menu').on('click', this.handleClickMainMenuButton);
         $('#btn-search').on('click', this.handleClickSearchButton);
+
+        this.notifications.updateUnreadCount();
     };
 
     this.settings = function() {
         return ScifiBot.db.data.settings;
+    };
+
+    this.notifications = {
+        TITLE_ADDED: "titleAdded",
+        TITLE_RELEASED: "titleReleased",
+
+        add: function(theNotification) {
+            theNotification.id = ScifiBot.db.data.notifications.id++;
+
+            ScifiBot.db.data.notifications.entries.push(theNotification);
+            ScifiBot.db.save();
+
+            ScifiBot.app.notifications.updateUnreadCount();
+
+            return theNotification;
+        },
+
+        remove: function(theNotificationId) {
+            var i, aRemoved = false, aNotifications = ScifiBot.db.data.notifications.entries, aLength = aNotifications.length;
+
+            for(i = 0; i < aLength; i++) {
+                if(aNotifications[i].id == theNotificationId) {
+                    aNotifications.splice(i, 1);
+                    aRemoved = true;
+                    break;
+                }
+            }
+
+            if(aRemoved) {
+                ScifiBot.db.save();
+            }
+
+            return aRemoved;
+        },
+
+        all: function() {
+            return ScifiBot.db.data.notifications.entries;
+        },
+
+        unreadCount: function() {
+            var i, aCount = 0, aNotifications = ScifiBot.db.data.notifications.entries, aLength = aNotifications.length;
+
+            for(i = 0; i < aLength; i++) {
+                if(!aNotifications[i].read) {
+                    aCount++;
+                }
+            }
+
+            return aCount;
+        },
+
+        updateUnreadCount: function() {
+            var aUnread = ScifiBot.app.notifications.unreadCount();
+
+            if(aUnread > 0) {
+                $('.notifications-count').html(aUnread + '').css({visibility: 'visible'});
+            } else {
+                $('.notifications-count').css({visibility: 'hidden'});
+            }
+        }
     };
 };
 

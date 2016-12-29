@@ -6,6 +6,7 @@ ScifiBot.db = new function() {
         watched: {},
         following: {},
         list: {},
+        notifications: { id: 1, entries: []},
         settings: ScifiBot.config.SETTINGS
     };
 

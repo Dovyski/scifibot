@@ -36,17 +36,36 @@ ScifiBot.page.notifications = new function() {
     };
 
     this.init = function(thePage) {
-        var aHtml = '';
+        var aHtml = '', aNotifications = ScifiBot.app.notifications.all();
 
         console.debug('scifibot.page.notifications.init()', thePage);
 
-        for(var i = 0; i < 3; i++) {
-            aHtml += this.renderNotification();
+        for(var i = 0; i < aNotifications.length; i++) {
+            aHtml += this.renderNotification(aNotifications[i]);
+            aNotifications[i].read = true;
         }
 
-        $('#notifications-list').html('<ul>' + aHtml + '</ul>');
-        $('#notifications-list a.delete').on('click', this.handleDelete);
-        $('#notifications-list div.item-inner, #notifications-list div.item-media').on('click', this.handleClick);
+        if(aHtml == '') {
+            // No notifications so far.
+            aHtml =
+                '<div class="content-block" style="text-align: center; margin-top: 20%;">' +
+                    '<i class="material-icons" style="font-size: 8em;">info_outline</i><br />' +
+                    'No notifications for now.<br /><br />New titles will be added soon. Meanwhile you can <i class="material-icons">notifications</i><strong>track</strong> existing titles to receive news about them.' +
+                '</div>';
+
+            $('#notifications-list').html(aHtml);
+
+        } else {
+            $('#notifications-list').html('<ul>' + aHtml + '</ul>');
+            $('#notifications-list a.delete').on('click', this.handleDelete);
+            $('#notifications-list div.item-inner, #notifications-list div.item-media').on('click', this.handleClick);
+
+            ScifiBot.app.notifications.updateUnreadCount();
+
+            // Notifications were marked as read, so we must save those
+            // changes to the disk
+            ScifiBot.db.save();
+        }
 
         ScifiBot.app.setNavbarTitle('Notifications');
     };
