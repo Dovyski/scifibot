@@ -1,6 +1,8 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.config = {
+    API_ENDPOINT: 'http://192.168.0.104/scifibot/api/',
+
     // Name of the database used to store app's data
     DATABASE_NAME: 'scifibot_data_20161227',
 

@@ -1,8 +1,6 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.api = new function() {
-    this.API_ENDPOINT = 'http://dev.local.com/scifibot/api/';
-
     this.handleError = function (theXhr, theStatus) {
         console.debug('ScifiBot.api.handleError', theXhr, theStatus);
     };
@@ -21,7 +19,7 @@ ScifiBot.api = new function() {
 
     this.invoke = function(theParams, theCallback) {
         $.ajax({
-            url: this.API_ENDPOINT,
+            url: ScifiBot.config.API_ENDPOINT,
             method: 'GET',
             data: theParams,
             dataType: 'json',
