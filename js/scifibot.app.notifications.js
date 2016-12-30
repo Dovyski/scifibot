@@ -1,14 +1,14 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.Notification = function(theType, theTitle, theTime) {
-    this.TITLE_ADDED = "titleAdded";
-    this.TITLE_RELEASED = "titleReleased";
-
     this.type = theType;
     this.read = false;
     this.title = theTitle;
     this.time = theTime || Date.now();
 }
+
+ScifiBot.Notification.TITLE_ADDED = "titleAdded";
+ScifiBot.Notification.TITLE_RELEASED = "titleReleased";
 
 ScifiBot.app.notifications = new function() {
     this.nextId = function() {

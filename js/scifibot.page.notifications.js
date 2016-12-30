@@ -2,17 +2,28 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.notifications = new function() {
+    this.describeType = function(theNotificationType) {
+        return theNotificationType;
+    };
+
     this.renderNotification = function(theNotification) {
+        var aTitle = ScifiBot.db.fetch(theNotification.title);
+
+        if(!aTitle) {
+            console.error('Unable to fetch title with id', theNotification.title);
+            return '';
+        }
+
         var aHtml =
-            '<li class="notification-1" data-title-id="' + theNotification.title + '">' +
+            '<li class="notification-1" data-title-id="' + aTitle.id + '">' +
               '<div class="item-content">' +
-                '<div class="item-media" data-title-id="2"><img src="http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg" width="80"/></div>' +
-                '<div class="item-inner" data-title-id="2">' +
+                '<div class="item-media" data-title-id="' + aTitle.id + '"><img src="' + aTitle.teaser + '" width="80"/></div>' +
+                '<div class="item-inner" data-title-id="' + aTitle.id + '">' +
                   '<div class="item-title-row">' +
-                    '<div class="item-title">The Martian</div>' +
+                    '<div class="item-title">' + aTitle.name + '</div>' +
                   '</div>' +
-                  '<div class="item-subtitle">2 days ago</div>' +
-                  '<div class="item-text">New movie added</div>' +
+                  '<div class="item-subtitle">' + new timeago().format(theNotification.time) + '</div>' +
+                  '<div class="item-text">' + this.describeType(theNotification.type) + '</div>' +
                 '</div>' +
                 '<div class="item-after"><a href="#" class="item-link delete" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +
               '</div>' +
@@ -36,11 +47,11 @@ ScifiBot.page.notifications = new function() {
     };
 
     this.init = function(thePage) {
-        var aHtml = '', aNotifications = ScifiBot.app.notifications.all(), aMarked = 0;
+        var aHtml = '', aNotifications = ScifiBot.app.notifications.all(), aMarked = 0, i;
 
         console.debug('scifibot.page.notifications.init()', thePage);
 
-        for(var i = 0; i < aNotifications.length; i++) {
+        for(i = aNotifications.length - 1; i >= 0; i--) {
             aHtml += this.renderNotification(aNotifications[i]);
 
             if(!aNotifications[i].read) {
