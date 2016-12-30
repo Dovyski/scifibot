@@ -4,7 +4,7 @@ ScifiBot.page = ScifiBot.page || {};
 ScifiBot.page.notifications = new function() {
     this.renderNotification = function(theNotification) {
         var aHtml =
-            '<li class="notification-1" data-title-id="2">' +
+            '<li class="notification-1" data-title-id="' + theNotification.title + '">' +
               '<div class="item-content">' +
                 '<div class="item-media" data-title-id="2"><img src="http://s3.foxmovies.com/foxmovies/production/films/104/images/featured_content/97-front.jpg" width="80"/></div>' +
                 '<div class="item-inner" data-title-id="2">' +
@@ -14,7 +14,7 @@ ScifiBot.page.notifications = new function() {
                   '<div class="item-subtitle">2 days ago</div>' +
                   '<div class="item-text">New movie added</div>' +
                 '</div>' +
-                '<div class="item-after"><a href="#" class="item-link delete" data-id="1"><i class="material-icons">delete</i></a></div>' +
+                '<div class="item-after"><a href="#" class="item-link delete" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +
               '</div>' +
             '</li>';
 
@@ -36,13 +36,17 @@ ScifiBot.page.notifications = new function() {
     };
 
     this.init = function(thePage) {
-        var aHtml = '', aNotifications = ScifiBot.app.notifications.all();
+        var aHtml = '', aNotifications = ScifiBot.app.notifications.all(), aMarked = 0;
 
         console.debug('scifibot.page.notifications.init()', thePage);
 
         for(var i = 0; i < aNotifications.length; i++) {
             aHtml += this.renderNotification(aNotifications[i]);
-            aNotifications[i].read = true;
+
+            if(!aNotifications[i].read) {
+                aNotifications[i].read = true;
+                aMarked++;
+            }
         }
 
         if(aHtml == '') {
@@ -60,11 +64,12 @@ ScifiBot.page.notifications = new function() {
             $('#notifications-list a.delete').on('click', this.handleDelete);
             $('#notifications-list div.item-inner, #notifications-list div.item-media').on('click', this.handleClick);
 
-            ScifiBot.app.notifications.updateUnreadCount();
-
-            // Notifications were marked as read, so we must save those
-            // changes to the disk
-            ScifiBot.db.save();
+            // Notifications were marked as read at the begining of this method,
+            // so we must save those changes to the disk.
+            if(aMarked > 0) {
+                ScifiBot.app.updateNotificationBadges();
+                ScifiBot.db.save();
+            }
         }
 
         ScifiBot.app.setNavbarTitle('Notifications');
