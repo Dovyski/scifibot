@@ -2,6 +2,26 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.item = new function() {
+    this.renderRatings = function(theItem) {
+        var aHtml = '<div class="ratings">';
+
+        if(theItem.imdb_rating) {
+            aHtml += '<li><img src="img/rating/imdb.png" class="rating-icon imdb" />' + theItem.imdb_rating + ' / 10</li>';
+        }
+
+        if(theItem.metascore) {
+            aHtml += '<li><img src="img/rating/metascore.png" class="rating-icon metascore" />' + theItem.metascore + '%</li>';
+        }
+
+        if(theItem.rotten_tomatoes) {
+            aHtml += '<li><img src="img/rating/rotten_tomatoes.png" class="rating-icon rotten-tomatoes" />' + theItem.rotten_tomatoes + '%</li>';
+        }
+
+        aHtml += '</div>';
+
+        return aHtml;
+    };
+
     this.init = function(thePage) {
         console.debug('scifibot.page.item.init()', thePage);
 
@@ -14,16 +34,32 @@ ScifiBot.page.item = new function() {
         }
 
         $('#item-card-teaser').css('background-image', 'url(' + aItem.teaser + ')');
-        $('#item-block-title').html('<strong>' + aItem.name + '</strong><br/><p class="color-gray">' + (aItem.publisher || '') + ' &bull; ' + (aItem.released || '') + '</p>');
+        $('#item-block-title').html(
+            '<strong>' + aItem.name + '</strong><br/>' +
+            '<p class="color-gray">' +
+                (aItem.runtime ? aItem.runtime + ' min &bull;' : '') +
+                (aItem.publisher ? aItem.publisher + ' &bull;' : '') +
+                (aItem.released ? aItem.released  : '') +
+            '</p>'
+        );
 
         $('#item-block-content').html(
-            '<p class="color-gray"><i class="material-icons">star</i> 8/10 <i class="material-icons">star</i> 92% <i class="material-icons">star</i> 80%</p>' +
+            this.renderRatings(aItem) +
             '<p>' + (aItem.plot || 'No information available.') + '</p>'
         );
 
-        $('a.trailer-link').attr('href', 'https://youtube.com');
+        if(aItem.trailer) {
+            $('a.trailer-link').attr('href', aItem.trailer);
+        } else {
+            $('.item-watch-trailer').remove();
+        }
+
         $('a.rate-link').attr('href', 'rate.html?id=' + aItemId);
         $('a.similar-link').attr('href', 'similar.html?id=' + aItemId);
+
+        // For now, disable rate and similar titles
+        $('.item-rate').remove();
+        $('.item-similars').remove();
 
         this.initInlineButtons(aItem);
         ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[aItem.type][0]);

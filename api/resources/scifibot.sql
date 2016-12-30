@@ -14,7 +14,9 @@ CREATE TABLE `titles` (
 	`imdb_rating`	REAL,
 	`metascore`	INTEGER,
 	`rotten_tomatoes`	REAL,
-	`modified`	INTEGER
+	`trailer`	TEXT,
+	`modified`	INTEGER,
+	`created`	INTEGER
 );
 
 CREATE INDEX modified_idx ON titles (modified);

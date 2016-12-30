@@ -1,3 +1,36 @@
+.ratings {
+    width: 100%;
+}
+
+.ratings li {
+    display: inline-block;
+    font-weight: bold;
+    width: 32%;
+    text-align: center;
+}
+
+.ratings li img {
+    margin-top: -5px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.rating-icon.rotten-tomatoes {
+    width: 30px;
+    height: auto;
+    margin-right: 6px;
+}
+
+.rating-icon.imdb {
+    width: 38px;
+    height: auto;
+}
+
+.rating-icon.metascore {
+    width: 30px;
+    height: auto;
+}
+
 .md-spin {
     -webkit-animation-name: spin;
     -webkit-animation-duration: 4000ms;
