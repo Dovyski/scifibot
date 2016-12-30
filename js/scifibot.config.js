@@ -2,9 +2,10 @@ var ScifiBot = ScifiBot || {};
 
 ScifiBot.config = {
     API_ENDPOINT: 'http://192.168.0.104/scifibot/api/',
+    PLOT_SUMMARY_SIZE: 120,
 
     // Name of the database used to store app's data
-    DATABASE_NAME: 'scifibot_data_20161227',
+    DATABASE_NAME: 'scifibot_data_20161230',
 
     // Version of the database shipped along with the app.
     DATABASE_VERSION: 3,

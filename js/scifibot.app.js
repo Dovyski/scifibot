@@ -97,7 +97,7 @@ ScifiBot.app = new function() {
               '<div class="card-content">' +
                 '<div class="card-content-inner">' +
                   '<p class="color-gray">' + aItem.name + '</p>' +
-                  '<p>' + (aItem.plot || 'No information available.') + '</p>' +
+                  '<p>' + (aItem.plot ? aItem.plot.substr(0, ScifiBot.config.PLOT_SUMMARY_SIZE) + '...' : 'No information available.') + '</p>' +
                   '<div class="item-buttons">' +
                     '<a href="#" data-id="' + aItem.id + '" class="link item-actions"><i class="material-icons">list</i> Actions</a>' +
                     '<a href="item.html?id=' + theId + '" class="link item-info">More <i class="material-icons">chevron_right</i></a>' +
