@@ -15,8 +15,8 @@ ScifiBot.page.notifications = new function() {
         }
 
         var aHtml =
-            '<li class="notification-1" data-title-id="' + aTitle.id + '">' +
-              '<div class="item-content">' +
+            '<li class="notification-' + theNotification.id + ' swipeout" data-title-id="' + aTitle.id + '">' +
+              '<div class="item-content swipeout-content">' +
                 '<div class="item-media" data-title-id="' + aTitle.id + '"><img src="' + aTitle.teaser + '" width="80"/></div>' +
                 '<div class="item-inner" data-title-id="' + aTitle.id + '">' +
                   '<div class="item-title-row">' +
@@ -25,7 +25,10 @@ ScifiBot.page.notifications = new function() {
                   '<div class="item-subtitle">' + new timeago().format(theNotification.time) + '</div>' +
                   '<div class="item-text">' + this.describeType(theNotification.type) + '</div>' +
                 '</div>' +
-                '<div class="item-after"><a href="#" class="item-link delete" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +
+                '<div class="item-after"><a href="#" class="item-link deleted" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +
+              '</div>' +
+              '<div class="swipeout-actions-left">' +
+                '<a href="#" class="swipeout-delete swipeout-overswipe deleted" data-id="' + theNotification.id + '"><i class="material-icons">delete</i> Remove</a>' +
               '</div>' +
             '</li>';
 
@@ -34,7 +37,17 @@ ScifiBot.page.notifications = new function() {
 
     this.handleDelete = function(theEvent) {
         var aNotificationId = $(this).data('id');
-        console.log('TODO: delete', aNotificationId);
+
+        ScifiBot.app.notifications.remove(aNotificationId);
+        ScifiBot.app.core.swipeoutDelete('.notification-' + aNotificationId);
+
+        console.debug('ScifiBot.page.notifications.handleDelete()', aNotificationId);
+
+        if(ScifiBot.app.notifications.all().length == 0) {
+            ScifiBot.page.notifications.showMessageNoNotifications();
+        }
+
+        // TODO: show undo option
     };
 
     this.handleClick = function(theEvent) {
@@ -44,6 +57,16 @@ ScifiBot.page.notifications = new function() {
             url: 'item.html?id=' + aTitleId,
             ignoreCache: true
         });
+    };
+
+    this.showMessageNoNotifications = function() {
+        var aHtml =
+            '<div class="content-block" style="text-align: center; margin-top: 20%;">' +
+                '<i class="material-icons" style="font-size: 8em;">info_outline</i><br />' +
+                'No notifications for now.<br /><br />New titles will be added soon. Meanwhile you can <i class="material-icons">notifications</i><strong>track</strong> existing titles to receive news about them.' +
+            '</div>';
+
+        $('#notifications-list').html(aHtml);
     };
 
     this.init = function(thePage) {
@@ -62,18 +85,13 @@ ScifiBot.page.notifications = new function() {
 
         if(aHtml == '') {
             // No notifications so far.
-            aHtml =
-                '<div class="content-block" style="text-align: center; margin-top: 20%;">' +
-                    '<i class="material-icons" style="font-size: 8em;">info_outline</i><br />' +
-                    'No notifications for now.<br /><br />New titles will be added soon. Meanwhile you can <i class="material-icons">notifications</i><strong>track</strong> existing titles to receive news about them.' +
-                '</div>';
-
-            $('#notifications-list').html(aHtml);
+            this.showMessageNoNotifications();
 
         } else {
             $('#notifications-list').html('<ul>' + aHtml + '</ul>');
-            $('#notifications-list a.delete').on('click', this.handleDelete);
             $('#notifications-list div.item-inner, #notifications-list div.item-media').on('click', this.handleClick);
+            $('#notifications-list .swipeout').on('swipeout:deleted', this.handleDelete);
+            $('#notifications-list .deleted').on('click', this.handleDelete);
 
             // Notifications were marked as read at the begining of this method,
             // so we must save those changes to the disk.

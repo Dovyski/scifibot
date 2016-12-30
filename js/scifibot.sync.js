@@ -3,7 +3,7 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.sync = new function() {
     this.handleNewContentNotifiation = function(theOldTitleInfo, theNewTitleInfo) {
         console.debug('Notify user about new content');
-        // TODO: use ScifiBot.app.notifications.add({type: ScifiBot.app.notifications.TITLE_ADDED, read: false, title: 1, date: Date.now()});
+        // TODO: use ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_ADDED, 1, Date.now()));
     };
 
     this.handleNewTitles = function(theTitles, theTimestamp) {
