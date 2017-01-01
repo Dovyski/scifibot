@@ -1,5 +1,8 @@
 <?php
+    require_once(dirname(__FILE__) . '/globals.php');
     require_once(dirname(__FILE__) . '/header.php');
+
+    $aEditing = isset($_REQUEST['id']);
 ?>
 
 <div id="page-wrapper">
