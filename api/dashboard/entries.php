@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                $aStmt = $aDb->prepare("SELECT * FROM titles");
+                                $aStmt = ScifiBot\Db::instance()->prepare("SELECT * FROM titles");
                                 $aStmt->execute();
 
                                 $aRows = array();

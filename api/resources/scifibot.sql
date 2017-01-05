@@ -3,22 +3,25 @@ CREATE TABLE `titles` (
 	`type`	INTEGER NOT NULL DEFAULT 1,
 	`name`	TEXT NOT NULL,
 	`publisher`	TEXT,
-	`year`	INTEGER,
-	`rated`	TEXT,
+	`year`	NUMERIC,
 	`released`	INTEGER,
 	`runtime`	INTEGER,
-	`genre`	TEXT,
-	`director`	TEXT,
 	`plot`	TEXT,
+	`wikipedia_url`	TEXT,
 	`teaser`	TEXT,
 	`imdb_rating`	REAL,
-	`metascore`	INTEGER,
-	`rotten_tomatoes`	REAL,
+	`imdb_url`	TEXT,
+	`metascore_rating`	INTEGER,
+	`metascore_url`	TEXT,
+	`rotten_tomatoes_rating`	REAL,
+	`rotten_tomatoes_url`	TEXT,
 	`trailer`	TEXT,
 	`modified`	INTEGER,
-	`created`	INTEGER
+	`created`	INTEGER,
+	`active`	INTEGER DEFAULT 0
 );
 
 CREATE INDEX modified_idx ON titles (modified);
+CREATE INDEX active_idx ON titles (active);
 
-INSERT into titles (name) VALUES ('Test');
+INSERT into titles (name, type) VALUES ('Test', 1);
