@@ -24,6 +24,18 @@ class Entity {
 
         return $aStmt->fetch(\PDO::FETCH_ASSOC);
 	}
+
+	public static function findAll($theIncludeInactive = true) {
+		$aEntries = array();
+		$aStmt = Db::instance()->prepare("SELECT * FROM titles WHERE " . ($theIncludeInactive ? '1' : ' active = 1'));
+        $aStmt->execute();
+
+		while($aRow = $aStmt->fetch(\PDO::FETCH_OBJ)) {
+			$aEntries[] = $aRow;
+		}
+
+        return $aEntries;
+	}
 }
 
 ?>
