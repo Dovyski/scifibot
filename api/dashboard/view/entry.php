@@ -63,7 +63,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label>Released</label>
-                                        <input name="year" class="form-control" value="<?php echo @$aEntry['released']; ?>">
+                                        <input name="released" class="form-control" value="<?php echo @$aEntry['released']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">

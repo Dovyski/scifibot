@@ -26,10 +26,12 @@
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>Id</th>
                                 <th style="width: 50%;">Name</th>
                                 <th>Type</th>
                                 <th>Modified</th>
                                 <th>Created</th>
+                                <th>Active</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,13 +40,15 @@
                                 foreach($aEntries as $aRow) {
                                     echo '<tr class="'.($aNum++ % 2 == 0 ? 'even' : 'odd').'">';
                                         echo '<td>';
-                                            echo '<a href="entry.php?id='.$aRow->id.'"><i class="fa fa-edit"></i></a> ';
+                                            echo '<a href="entry.php?id='.$aRow->id.'"><i class="fa fa-edit"></i></a> &bull; ';
                                             echo '<a href="entry.php?id='.$aRow->id.'&delete=1" onclick="return confirm(\'Delete?\')"><i class="fa fa-trash"></i></a>';
                                         echo '</td>';
+                                        echo '<td>'.$aRow->id.'</td>';
                                         echo '<td>'.$aRow->name.'</td>';
                                         echo '<td>'.$aRow->type.'</td>';
                                         echo '<td>'.date('Y-m-d H:i:s', $aRow->modified).'</td>';
                                         echo '<td>'.date('Y-m-d H:i:s', $aRow->created).'</td>';
+                                        echo '<td>'.$aRow->active.'</td>';
                                     echo '</tr>';
                                 }
                             ?>

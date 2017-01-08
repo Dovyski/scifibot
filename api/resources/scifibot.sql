@@ -3,7 +3,7 @@ CREATE TABLE `titles` (
 	`type`	INTEGER NOT NULL DEFAULT 1,
 	`name`	TEXT NOT NULL,
 	`publisher`	TEXT,
-	`year`	NUMERIC,
+	`year`	INTEGER,
 	`released`	INTEGER,
 	`runtime`	INTEGER,
 	`plot`	TEXT,
