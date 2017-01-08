@@ -1,17 +1,32 @@
 <?php
     require_once(dirname(__FILE__) . '/globals.php');
 
+    // Get id from URL
     $aId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+    // If the form data already contains an id, use that instead
+    // of the id provided in the URL.
     $aId = isset($_POST['id']) ? (int)$_POST['id'] : $aId;
 
-    $aEditing = $aId != 0;
+    $aDeleting = isset($_GET['delete']);
+    $aEditing = $aId != 0 && !$aDeleting;
     $aEntry = null;
     $aMessage = '';
     $aStatus = 'success';
     $aHideFields = false;
+    $aTitle = 'Add entry';
 
-    if($aEditing) {
+    if($aDeleting) {
+        $aDeleted = ScifiBot\Entity::delete($aId);
+
+        $aMessage = $aDeleted ? 'Entry was deleted!' : 'Unable to delete entry because it does not exist.';
+        $aStatus = $aDeleted ? 'success' : 'danger';
+        $aTitle = 'Delete entry';
+        $aHideFields = true;
+
+    } else if($aEditing) {
         $aEntry = ScifiBot\Entity::getById($aId);
+        $aTitle = 'Edit entry';
 
         if(!$aEntry) {
             $aMessage = '<strong>Oops!</strong> Entry not found.';
@@ -20,7 +35,7 @@
         }
     }
 
-    if(isset($_REQUEST['data'])) {
+    if(!$aDeleting && isset($_REQUEST['data'])) {
         $aStmt = null;
         $aEntry = $_REQUEST;
         $aNow = time();
@@ -140,10 +155,12 @@
     }
 
     ScifiBot\View::render('entry', array(
+        'title' => $aTitle,
         'status' => $aStatus,
         'message' => $aMessage,
         'entry' => $aEntry,
         'editing' => $aEditing,
+        'deleting' => $aDeleting,
         'hideFields' => $aHideFields
     ));
 ?>

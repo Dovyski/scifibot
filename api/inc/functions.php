@@ -36,6 +36,15 @@ class Entity {
 
         return $aEntries;
 	}
+
+	public static function delete($theId) {
+		$aStmt = Db::instance()->prepare("DELETE FROM titles WHERE id = :id");
+
+        $aStmt->bindParam(':id', $theId);
+        $aStmt->execute();
+
+        return $aStmt->rowCount() != 0;
+	}
 }
 
 ?>
