@@ -1,10 +1,10 @@
 var ScifiBot = ScifiBot || {};
 
-ScifiBot.Notification = function(theType, theTitle, theTime) {
-    this.type = theType;
-    this.read = false;
-    this.title = theTitle;
-    this.time = theTime || Date.now();
+ScifiBot.Notification = function(theType, theTitleId, theTime) {
+    this.type = theType;                    // Type of the notification. It can be any of ScifiBot.Notification.TITLE_*.
+    this.read = false;                      // If the notification has been read by the user
+    this.title = theTitleId;                // Id of the title related to this notification
+    this.time = theTime || Date.now();      // When this notification was created. Time is local and not related to the server.
 }
 
 ScifiBot.Notification.TITLE_ADDED = "titleAdded";

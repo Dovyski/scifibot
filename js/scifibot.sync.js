@@ -1,9 +1,25 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.sync = new function() {
-    this.handleNewContentNotifiation = function(theOldTitleInfo, theNewTitleInfo) {
-        console.debug('Notify user about new content');
-        // TODO: use ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_ADDED, 1, Date.now()));
+    this.handleNewContentNotifiation = function(theOldTitle, theNewTitle) {
+        var aSettings = ScifiBot.app.settings();
+
+        if(!theOldTitle) {
+            // There is no previous entry for this title, it is a brand new
+            // entry in the catalog /o/
+            if(aSettings.notifyNewTitles) {
+                ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_ADDED, theNewTitle.id));
+            }
+        } else {
+            // The entry already existed, it has only been updated.
+            // If the user is following the title, we must create
+            // a notification about it.
+            if(ScifiBot.user.following(theNewTitle.id)) {
+                if(theNewTitle.released) {
+                    ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_RELEASED, theNewTitle.id));
+                }
+            }
+        }
     };
 
     this.handleNewTitles = function(theTitles, theTimestamp) {
@@ -24,11 +40,8 @@ ScifiBot.sync = new function() {
         for(i = 0; i < aLength; i++) {
             var aTitle = theTitles[i];
 
-            // If the user is following the title, we must create
-            // a notification because there is somthing new.
-            if(ScifiBot.user.following(aTitle.id)) {
-                this.handleNewContentNotifiation(ScifiBot.db.fetch(aTitle.id), aTitle);
-            }
+            // Notify the user about new concent, according to notification settings
+            this.handleNewContentNotifiation(ScifiBot.db.fetch(aTitle.id), aTitle);
 
             // Save the most recent timestamp regading modifications.
             // It will be used in the future to request only the data
