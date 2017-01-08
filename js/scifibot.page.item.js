@@ -6,15 +6,15 @@ ScifiBot.page.item = new function() {
         var aHtml = '<div class="ratings">';
 
         if(theItem.imdb_rating) {
-            aHtml += '<li><img src="img/rating/imdb.png" class="rating-icon imdb" />' + theItem.imdb_rating + ' / 10</li>';
+            aHtml += '<a href="' + theItem.imdb_url + '"><li><img src="img/rating/imdb.png" class="rating-icon imdb" />' + theItem.imdb_rating + ' / 10</li></a>';
         }
 
-        if(theItem.metascore) {
-            aHtml += '<li><img src="img/rating/metascore.png" class="rating-icon metascore" />' + theItem.metascore + '%</li>';
+        if(theItem.metascore_rating) {
+            aHtml += '<a href="' + theItem.metascore_url + '"><li><img src="img/rating/metascore.png" class="rating-icon metascore" />' + theItem.metascore_rating + '%</li></a>';
         }
 
-        if(theItem.rotten_tomatoes) {
-            aHtml += '<li><img src="img/rating/rotten_tomatoes.png" class="rating-icon rotten-tomatoes" />' + theItem.rotten_tomatoes + '%</li>';
+        if(theItem.rotten_tomatoes_rating) {
+            aHtml += '<a href="' + theItem.rotten_tomatoes_url + '"><li><img src="img/rating/rotten_tomatoes.png" class="rating-icon rotten-tomatoes" />' + theItem.rotten_tomatoes_rating + '%</li></a>';
         }
 
         aHtml += '</div>';
@@ -37,15 +37,16 @@ ScifiBot.page.item = new function() {
         $('#item-block-title').html(
             '<strong>' + aItem.name + '</strong><br/>' +
             '<p class="color-gray">' +
-                (aItem.runtime ? aItem.runtime + ' min &bull;' : '') +
-                (aItem.publisher ? aItem.publisher + ' &bull;' : '') +
-                (aItem.released ? aItem.released  : '') +
+                (aItem.runtime ? aItem.runtime + ' min' : '') +
+                (aItem.publisher ? ' &bull; ' + aItem.publisher : '') +
+                (aItem.released ? ' &bull; ' + aItem.released : '') +
             '</p>'
         );
 
         $('#item-block-content').html(
             this.renderRatings(aItem) +
-            '<p>' + (aItem.plot || 'No information available.') + '</p>'
+            '<p class="plot-text">' + (aItem.plot || 'No information available.') + '</p>' +
+            '<p class="plot-source">Source: <a href="' + aItem.wikipedia_url + '" class="external">Wikipedia</a></p>'
         );
 
         if(aItem.trailer) {

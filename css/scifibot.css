@@ -7,12 +7,21 @@
     font-weight: bold;
     width: 32%;
     text-align: center;
+    font-size: 1.1em;
 }
 
 .ratings li img {
     margin-top: -5px;
     vertical-align: middle;
     margin-right: 10px;
+}
+
+.ratings a:link,
+.ratings a:hover,
+.ratings a:active,
+.ratings a:visited {
+    color: #f2f2f2  ;
+    text-decoration: none;
 }
 
 .rating-icon.rotten-tomatoes {
@@ -89,9 +98,28 @@
 }
 
 .card-header-pic .card-header {
-    height: 40vw;
-    background-size: 100%;
+    height: 60vw;
+    background-size: 100% auto;
     background-position: center;
+}
+
+.card-header-full {
+    height: 100vw;
+    background-size: 100% auto;
+    background-position: center;
+}
+
+.plot-text {
+    text-align: justify;
+}
+
+.plot-source,
+.plot-source a:link,
+.plot-source a:active,
+.plot-source a:visited,
+.plot-source a:hover {
+    font-size: 0.9em;
+    color: #afafaf;
 }
 
 .card {
