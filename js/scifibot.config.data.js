@@ -22,8 +22,8 @@ ScifiBot.config.DATABASE_DATA =
         "metascore": null,
         "rotten_tomatoes": null,
         "trailer": null,
-        "modified": 1482777363,
-        "created": null
+        "modified": 1483885342,
+        "created": 1483885342
     },
     "2": {
         "id": 2,
@@ -42,8 +42,7 @@ ScifiBot.config.DATABASE_DATA =
         "metascore": null,
         "rotten_tomatoes": null,
         "trailer": null,
-        "modified": 1682777365,
-        "created": null
+        "modified": 1483885342,
+        "created": 1483885342
     }
 };
-

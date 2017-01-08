@@ -104,13 +104,13 @@
 }
 
 .card-header-full {
-    height: 100vw;
+    height: 50vh;
     background-size: 100% auto;
     background-position: center;
 }
 
 .plot-text {
-    text-align: justify;
+    
 }
 
 .plot-source,

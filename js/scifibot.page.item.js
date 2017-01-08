@@ -37,9 +37,9 @@ ScifiBot.page.item = new function() {
         $('#item-block-title').html(
             '<strong>' + aItem.name + '</strong><br/>' +
             '<p class="color-gray">' +
-                (aItem.runtime ? aItem.runtime + ' min' : '') +
+                (aItem.year ? aItem.year : '') +
+                (aItem.runtime ? ' &bull; ' + aItem.runtime + ' min' : '') +
                 (aItem.publisher ? ' &bull; ' + aItem.publisher : '') +
-                (aItem.released ? ' &bull; ' + aItem.released : '') +
             '</p>'
         );
 
