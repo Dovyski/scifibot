@@ -19,7 +19,7 @@ ScifiBot.page.notifications = new function() {
         }
 
         var aHtml =
-            '<li class="notification-' + theNotification.id + ' swipeout notification-item" data-title-id="' + aTitle.id + '">' +
+            '<li class="notification-' + theNotification.id + ' swipeout app-notification-item" data-title-id="' + aTitle.id + '">' +
               '<div class="item-content swipeout-content">' +
                 '<div class="item-media" data-title-id="' + aTitle.id + '"><img src="' + aTitle.teaser + '" class="item-thumbnail" /></div>' +
                 '<div class="item-inner" data-title-id="' + aTitle.id + '">' +
