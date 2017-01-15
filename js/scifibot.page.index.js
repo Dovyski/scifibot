@@ -110,7 +110,7 @@ ScifiBot.page.index = new function() {
 
         var aButtons = [
             {
-                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">remove</i> Remove from my list' : '<i class="material-icons">add</i> Add to my list',
+                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Remove from my list' : '<i class="material-icons">playlist_add</i> Add to my list',
                 onClick: function () {
                     ScifiBot.user.list.toggle(ScifiBot.app.activeItem);
                     ScifiBot.app.updateExistingCards(ScifiBot.app.activeItem);
@@ -118,7 +118,7 @@ ScifiBot.page.index = new function() {
                 }
             },
             {
-                text: ScifiBot.user.watched(aItemId) ? '<i class="material-icons">remove</i> Mark as not watched' : '<i class="material-icons">check</i> Mark as watched',
+                text: ScifiBot.user.watched(aItemId) ? '<i class="material-icons">visibility_off</i> Mark as not watched' : '<i class="material-icons">check</i> Mark as watched',
                 onClick: function () {
                     ScifiBot.user.toggleWatched(ScifiBot.app.activeItem);
                     ScifiBot.app.updateExistingCards(ScifiBot.app.activeItem);
@@ -126,21 +126,24 @@ ScifiBot.page.index = new function() {
                 }
             },
             {
-                text: ScifiBot.user.following(aItemId) ? '<i class="material-icons">remove</i> Stop tracking' : '<i class="material-icons">add_alert</i> Track',
+                text: ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications</i> Stop tracking' : '<i class="material-icons">add_alert</i> Track',
                 onClick: function () {
                     ScifiBot.user.toggleFollowing(ScifiBot.app.activeItem);
                     ScifiBot.app.updateExistingCards(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
                 }
-            },
-            {
+            }
+        ];
+
+        if(false) {
+            aButtons.push({
                 text: '<i class="material-icons">star_half</i> Rate and review',
                 onClick: function () {
                     ScifiBot.app.views.main.router.loadPage('rate.html?id=' + ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
                 }
-            }
-        ];
+            });
+        }
 
         ScifiBot.app.core.actions(aButtons);
     };
