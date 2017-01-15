@@ -208,3 +208,15 @@ div.watched {
     width:34px;
     height:34px;
 }
+
+.page-content.about-page {
+    text-align: center;
+}
+
+.page-content.about-page strong {
+    font-size: 1.4em;
+}
+
+.page-content.about-page small {
+    opacity: 0.8;
+}
