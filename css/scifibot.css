@@ -86,11 +86,22 @@
 }
 
 .notification-item {
-    background: #fff;
 }
 
 .notification-item .item-title {
-    color: #000;
+    font-weight: bold;
+}
+
+.notification-item .item-media {
+    width: 80px;
+    height: 75px;
+    overflow: hidden;
+    margin: 10px 0 10px 0;
+}
+
+.notification-item .item-thumbnail {
+    width: 80px;
+    height: auto;
 }
 
 .watch-status {
@@ -110,7 +121,7 @@
 }
 
 .plot-text {
-    
+
 }
 
 .plot-source,

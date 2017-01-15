@@ -2,8 +2,12 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.notifications = new function() {
-    this.describeType = function(theNotificationType) {
-        return theNotificationType;
+    this.describeType = function(theNotificationType, theTitle) {
+        switch(theNotificationType) {
+            case ScifiBot.Notification.TITLE_ADDED: return 'new ' + ScifiBot.db.TYPE_NAMES[theTitle.type][0] + ' added to the catalog';
+            case ScifiBot.Notification.TITLE_RELEASED: return 'has been released';
+            default: '?';
+        }
     };
 
     this.renderNotification = function(theNotification) {
@@ -15,15 +19,15 @@ ScifiBot.page.notifications = new function() {
         }
 
         var aHtml =
-            '<li class="notification-' + theNotification.id + ' swipeout" data-title-id="' + aTitle.id + '">' +
+            '<li class="notification-' + theNotification.id + ' swipeout notification-item" data-title-id="' + aTitle.id + '">' +
               '<div class="item-content swipeout-content">' +
-                '<div class="item-media" data-title-id="' + aTitle.id + '"><img src="' + aTitle.teaser + '" width="80"/></div>' +
+                '<div class="item-media" data-title-id="' + aTitle.id + '"><img src="' + aTitle.teaser + '" class="item-thumbnail" /></div>' +
                 '<div class="item-inner" data-title-id="' + aTitle.id + '">' +
                   '<div class="item-title-row">' +
                     '<div class="item-title">' + aTitle.name + '</div>' +
                   '</div>' +
+                  '<div class="item-text">' + this.describeType(theNotification.type, aTitle) + '</div>' +
                   '<div class="item-subtitle">' + new timeago().format(theNotification.time) + '</div>' +
-                  '<div class="item-text">' + this.describeType(theNotification.type) + '</div>' +
                 '</div>' +
                 '<div class="item-after"><a href="#" class="item-link deleted" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +
               '</div>' +
