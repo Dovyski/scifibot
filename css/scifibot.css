@@ -220,3 +220,40 @@ div.watched {
 .page-content.about-page small {
     opacity: 0.8;
 }
+
+.main-menu {
+    margin-top: 0;
+}
+
+.main-menu,
+.main-menu a:link,
+.main-menu a:active,
+.main-menu a:visited {
+    color: #ccc;
+}
+
+.main-menu div.header {
+    padding-left: 5px;
+    background: #ff9800;
+    height: 6em;
+    margin-bottom: 3    px;
+}
+
+.main-menu div.header div.item-media {
+    width: 35%;
+    height: auto;
+}
+
+.main-menu div.header img {
+    width: 100%;
+    height: auto;
+}
+
+.main-menu div.header div.item-title {
+    font-size: 1.3em;
+    color: #fff;
+}
+
+.main-menu ul.submenu {
+    padding-left: 1.5em;
+}
