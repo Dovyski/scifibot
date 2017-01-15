@@ -33,7 +33,7 @@ ScifiBot.user = new function() {
 
     this.list = new function() {
         this.has = function(theId) {
-            return ScifiBot.db.data.list[theId];
+            return ScifiBot.db.data.list[theId] != undefined && ScifiBot.db.data.list[theId] != null;
         };
 
         this.add = function(theId) {

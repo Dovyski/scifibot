@@ -113,6 +113,7 @@ ScifiBot.page.index = new function() {
                 text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">remove</i> Remove from my list' : '<i class="material-icons">add</i> Add to my list',
                 onClick: function () {
                     ScifiBot.user.list.toggle(ScifiBot.app.activeItem);
+                    ScifiBot.app.updateExistingCards(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
                 }
             },
@@ -128,6 +129,7 @@ ScifiBot.page.index = new function() {
                 text: ScifiBot.user.following(aItemId) ? '<i class="material-icons">remove</i> Stop tracking' : '<i class="material-icons">add_alert</i> Track',
                 onClick: function () {
                     ScifiBot.user.toggleFollowing(ScifiBot.app.activeItem);
+                    ScifiBot.app.updateExistingCards(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
                 }
             },

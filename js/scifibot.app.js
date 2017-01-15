@@ -92,7 +92,11 @@ ScifiBot.app = new function() {
         aHtml +=
             '<div class="card card-header-pic">' +
               '<div style="background-image:url(' + aItem.teaser + ')" valign="bottom" class="card-header color-white">' +
-                '<span class="watch-status watch-status-' + theId + '" data-id="' + aItem.id + '"></span>' +
+                '<div class="card-badges">' +
+                    '<span class="badge-entry not-marked watch-status-' + theId + '" data-id="' + aItem.id + '"></span>' +
+                    '<span class="badge-entry not-marked track-status-' + theId + '" data-id="' + aItem.id + '"></span>' +
+                    '<span class="badge-entry not-marked list-status-' + theId + '" data-id="' + aItem.id + '"></span>' +
+                 '</div>' +
               '</div>' +
               '<div class="card-content">' +
                 '<div class="card-content-inner">' +
@@ -109,22 +113,38 @@ ScifiBot.app = new function() {
         return aHtml;
     }
 
-    this.updateWatchedBadge = function(theItemId) {
-        if(ScifiBot.user.watched(theItemId)) {
-            $('.watch-status-' + theItemId).addClass('badge-watched').html('<i class="material-icons">check</i> WATCHED</span>');
-        } else {
-            $('.watch-status-' + theItemId).removeClass('badge-watched').html('');
+    this.updateBadge = function(theItemId) {
+        var aThings = [
+            {name: 'watch', icon: 'check',                  doing: ScifiBot.user.watched(theItemId)},
+            {name: 'track', icon: 'notifications_active',   doing: ScifiBot.user.following(theItemId)},
+            {name: 'list',  icon: 'playlist_add_check',     doing: ScifiBot.user.list.has(theItemId)},
+        ];
+
+        for(var i = 0, aSize = aThings.length; i < aSize; i++) {
+            var aSelector = '.' + aThings[i].name + '-status-' + theItemId;
+
+            if(aThings[i].doing) {
+                $(aSelector)
+                    .removeClass('not-marked')
+                    .addClass('marked')
+                    .html('<i class="material-icons">' + aThings[i].icon + '</i></span>');
+            } else {
+                $(aSelector)
+                    .removeClass('marked')
+                    .addClass('not-marked')
+                    .html('');
+            }
         }
     };
 
     this.updateExistingCards = function(theItemId) {
         if(theItemId) {
             // Update the card of an specific item
-            ScifiBot.app.updateWatchedBadge(theItemId);
+            ScifiBot.app.updateBadge(theItemId);
         } else {
             // Update all cards of the app.
-            $('.watch-status').each(function(theKey, theValue) {
-                ScifiBot.app.updateWatchedBadge($(theValue).data('id'));
+            $('.badge-entry').each(function(theKey, theValue) {
+                ScifiBot.app.updateBadge($(theValue).data('id'));
             });
         }
     };

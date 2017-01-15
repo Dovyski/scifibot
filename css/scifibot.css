@@ -104,8 +104,25 @@
     height: auto;
 }
 
-.watch-status {
+.card-badges {
+    width: 40%;
+    overflow: auto;
+}
+
+.badge-entry.marked {
+    background-color: green;
+    padding: 3px 5px 3px 5px;
+    color: white;
+    display: block;
+}
+
+.badge-entry.not-marked {
     display: none;
+}
+
+.badge-entry {
+    display: inline-block;
+    width: 25px;
 }
 
 .card-header-pic .card-header {
@@ -161,13 +178,6 @@
 
 .item-inline-buttons a {
     margin-right: 0.3em;
-}
-
-.badge-watched {
-    background-color: green;
-    padding: 3px 5px 3px 5px;
-    color: white;
-    display: block;
 }
 
 div.watched {
