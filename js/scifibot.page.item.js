@@ -33,7 +33,15 @@ ScifiBot.page.item = new function() {
             return;
         }
 
-        $('#item-card-teaser').css('background-image', 'url(' + aItem.teaser + ')');
+        $('#item-card-teaser')
+            .css('background-image', 'url(' + aItem.teaser + ')')
+            .html(
+            '<div class="card-badges">' +
+                '<span class="badge-entry not-marked watch-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
+                '<span class="badge-entry not-marked track-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
+                '<span class="badge-entry not-marked list-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
+            '</div>');
+
         $('#item-block-title').html(
             '<strong>' + aItem.name + '</strong><br/>' +
             '<p class="color-gray">' +
@@ -69,17 +77,15 @@ ScifiBot.page.item = new function() {
     this.refreshInlineButtons = function() {
         var aItemId = ScifiBot.app.views.main.activePage.query.id;
 
-        $('#btn-watch').html(ScifiBot.user.watched(aItemId) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">visibility_off</i> Not watched');
-        $('#btn-follow').html(ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications_active</i> Tracked' : '<i class="material-icons">notifications</i> Not tracked');
-        $('#btn-list').html(ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> In list' : '<i class="material-icons">playlist_add</i> Not in list');
+        $('#btn-watch').html(ScifiBot.user.watched(aItemId) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">visibility_off</i> Watch');
+        $('#btn-follow').html(ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications_active</i> Tracked' : '<i class="material-icons">notifications</i> Track');
+        $('#btn-list').html(ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Enqueued' : '<i class="material-icons">playlist_add</i> Enqueue');
     };
 
     this.initInlineButtons = function(theItem) {
         var aSelf = this;
 
         $('.item-inline-buttons a').data('item', theItem.id);
-
-        this.refreshInlineButtons();
 
         $('#btn-watch').on('click', function () {
             ScifiBot.app.titleToggleWatched(ScifiBot.app.views.main.activePage.query.id);
@@ -92,8 +98,11 @@ ScifiBot.page.item = new function() {
         });
 
         $('#btn-list').on('click', function () {
-            ScifiBot.app.titleToggleList(ScifiBot.app.views.main.activePage.query.id)
+            ScifiBot.app.titleToggleList(ScifiBot.app.views.main.activePage.query.id);
             aSelf.refreshInlineButtons();
         });
+
+        this.refreshInlineButtons();
+        ScifiBot.app.updateExistingCards(theItem.id);
     };
 };
