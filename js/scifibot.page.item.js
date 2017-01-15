@@ -6,7 +6,7 @@ ScifiBot.page.item = new function() {
         var aHtml = '<div class="ratings">';
 
         if(theItem.imdb_rating) {
-            aHtml += '<a href="' + theItem.imdb_url + '"><li><img src="img/rating/imdb.png" class="rating-icon imdb" />' + theItem.imdb_rating + ' / 10</li></a>';
+            aHtml += '<a href="' + theItem.imdb_url + '"><li><img src="img/rating/imdb.png" class="rating-icon imdb" />' + theItem.imdb_rating.toFixed(1) + '</li></a>';
         }
 
         if(theItem.metascore_rating) {
@@ -72,8 +72,6 @@ ScifiBot.page.item = new function() {
         $('#btn-watch').html(ScifiBot.user.watched(aItemId) ? '<i class="material-icons">check</i> Watched' : '<i class="material-icons">visibility_off</i> Not watched');
         $('#btn-follow').html(ScifiBot.user.following(aItemId) ? '<i class="material-icons">notifications_active</i> Tracked' : '<i class="material-icons">notifications</i> Not tracked');
         $('#btn-list').html(ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> In list' : '<i class="material-icons">playlist_add</i> Not in list');
-
-        ScifiBot.app.updateExistingCards(aItemId);
     };
 
     this.initInlineButtons = function(theItem) {
@@ -84,28 +82,17 @@ ScifiBot.page.item = new function() {
         this.refreshInlineButtons();
 
         $('#btn-watch').on('click', function () {
-            ScifiBot.user.toggleWatched(ScifiBot.app.views.main.activePage.query.id);
+            ScifiBot.app.titleToggleWatched(ScifiBot.app.views.main.activePage.query.id);
             aSelf.refreshInlineButtons();
         });
 
         $('#btn-follow').on('click', function () {
-            var aFollowing = ScifiBot.user.toggleFollowing(ScifiBot.app.views.main.activePage.query.id);
-
-            if(aFollowing) {
-                ScifiBot.app.core.addNotification({
-                    message: 'You will be notified about important news regarding this title.',
-                    button: {
-                        text: 'CLOSE',
-                        color: 'orange'
-                    }
-                });
-            }
-
+            ScifiBot.app.titleToggleFollow(ScifiBot.app.views.main.activePage.query.id);
             aSelf.refreshInlineButtons();
         });
 
         $('#btn-list').on('click', function () {
-            ScifiBot.user.list.toggle(ScifiBot.app.views.main.activePage.query.id);
+            ScifiBot.app.titleToggleList(ScifiBot.app.views.main.activePage.query.id)
             aSelf.refreshInlineButtons();
         });
     };

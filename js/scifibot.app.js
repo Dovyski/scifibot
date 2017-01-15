@@ -111,7 +111,33 @@ ScifiBot.app = new function() {
             '</div>';
 
         return aHtml;
-    }
+    };
+
+    this.titleToggleList = function(theTitleId) {
+        ScifiBot.user.list.toggle(theTitleId);
+        ScifiBot.app.updateExistingCards(theTitleId);
+    };
+
+    this.titleToggleWatched = function(theTitleId) {
+        ScifiBot.user.toggleWatched(theTitleId);
+        ScifiBot.app.updateExistingCards(theTitleId);
+    };
+
+    this.titleToggleFollow = function(theTitleId) {
+        var aFollowing = ScifiBot.user.toggleFollowing(theTitleId);
+
+        if(aFollowing) {
+            ScifiBot.app.core.addNotification({
+                message: 'You will be notified about important news regarding this title.',
+                button: {
+                    text: 'CLOSE',
+                    color: 'orange'
+                }
+            });
+        }
+
+        ScifiBot.app.updateExistingCards(theTitleId);
+    };
 
     this.updateBadge = function(theItemId) {
         var aThings = [
