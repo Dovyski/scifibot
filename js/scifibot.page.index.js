@@ -7,6 +7,9 @@ ScifiBot.page.Index = function() {
     this.myList = false;        // If the page is working to show the list of title in user's "My list".
     this.itemsPerLoad = 20;     // Append items per load
     this.url = '';
+    this.scrollTop = 0;
+    this.scrollTopMyList = 0;
+    this.initialized = false;
 
     this.setInfiniteScrolling = function(theStatus) {
         if(theStatus) {
@@ -157,6 +160,14 @@ ScifiBot.page.Index = function() {
         );
     };
 
+    this.handlePageScroll = function(theEvent) {
+        if(ScifiBot.app.pages.index.myList) {
+            ScifiBot.app.pages.index.scrollTopMyList = $(this).scrollTop();
+        } else {
+            ScifiBot.app.pages.index.scrollTop = $(this).scrollTop();
+        }
+    };
+
     this.init = function(thePage) {
         console.debug('scifibot.page.index.init()', thePage);
 
@@ -169,6 +180,15 @@ ScifiBot.page.Index = function() {
         this.removeContent();
         this.setInfiniteScrolling();
         this.loadItems();
+
+        // Track scroll events
+        $('.page-content').on('scroll', this.handlePageScroll);
+
+        if(this.initialized) {
+            $('.page-content').scrollTop(this.myList ? this.scrollTopMyList : this.scrollTop);
+        }
+
+        this.initialized = true;
     };
 
     this.getNavbarTitle = function() {
