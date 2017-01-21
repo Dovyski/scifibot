@@ -1,11 +1,12 @@
 var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
-ScifiBot.page.index = new function() {
+ScifiBot.page.Index = function() {
     this.lastId = -1;           // If of Last loaded item
     this.type = 2;              // Type of titles to be displayed in the page.
     this.myList = false;        // If the page is working to show the list of title in user's "My list".
     this.itemsPerLoad = 20;     // Append items per load
+    this.url = '';
 
     this.setInfiniteScrolling = function(theStatus) {
         if(theStatus) {
@@ -162,18 +163,15 @@ ScifiBot.page.index = new function() {
         this.lastId = -1;
         this.type = thePage.query.type || ScifiBot.db.MOVIES;
         this.myList = thePage.query.myList;
+        this.url = thePage.url;
 
         // Clear any previously loaded content
         this.removeContent();
         this.setInfiniteScrolling();
         this.loadItems();
+    };
 
-        if(this.myList) {
-            // User is browing "My list"
-            ScifiBot.app.setNavbarTitle("My list");
-        } else {
-            // User is browsing some type of title.
-            ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[this.type][1]);
-        }
+    this.getNavbarTitle = function() {
+        return this.myList? "My list" : ScifiBot.db.TYPE_NAMES[this.type][1];
     };
 };

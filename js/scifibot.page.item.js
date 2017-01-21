@@ -2,6 +2,8 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.item = new function() {
+    this.item = null;
+
     this.renderRatings = function(theItem) {
         var aHtml = '<div class="ratings">';
 
@@ -26,39 +28,39 @@ ScifiBot.page.item = new function() {
         console.debug('scifibot.page.item.init()', thePage);
 
         var aItemId = thePage.query.id;
-        var aItem = ScifiBot.db.fetch(aItemId);
+        this.item = ScifiBot.db.fetch(aItemId);
 
-        if(!aItem) {
+        if(!this.item) {
             console.error('Unable to load item with id: ' + aItemId);
             return;
         }
 
         $('#item-card-teaser')
-            .css('background-image', 'url(' + aItem.teaser + ')')
+            .css('background-image', 'url(' + this.item.teaser + ')')
             .html(
             '<div class="card-badges">' +
-                '<span class="badge-entry not-marked watch-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
-                '<span class="badge-entry not-marked track-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
-                '<span class="badge-entry not-marked list-status-' + aItemId + '" data-id="' + aItem.id + '"></span>' +
+                '<span class="badge-entry not-marked watch-status-' + aItemId + '" data-id="' + this.item.id + '"></span>' +
+                '<span class="badge-entry not-marked track-status-' + aItemId + '" data-id="' + this.item.id + '"></span>' +
+                '<span class="badge-entry not-marked list-status-' + aItemId + '" data-id="' + this.item.id + '"></span>' +
             '</div>');
 
         $('#item-block-title').html(
-            '<strong>' + aItem.name + '</strong><br/>' +
+            '<strong>' + this.item.name + '</strong><br/>' +
             '<p class="color-gray">' +
-                (aItem.year ? aItem.year : '') +
-                (aItem.runtime ? ' &bull; ' + aItem.runtime + ' min' : '') +
-                (aItem.publisher ? ' &bull; ' + aItem.publisher : '') +
+                (this.item.year ? this.item.year : '') +
+                (this.item.runtime ? ' &bull; ' + this.item.runtime + ' min' : '') +
+                (this.item.publisher ? ' &bull; ' + this.item.publisher : '') +
             '</p>'
         );
 
         $('#item-block-content').html(
-            this.renderRatings(aItem) +
-            '<p class="plot-text">' + (aItem.plot || 'No information available.') + '</p>' +
-            '<p class="plot-source">Source: <a href="' + aItem.wikipedia_url + '" class="external">Wikipedia</a></p>'
+            this.renderRatings(this.item) +
+            '<p class="plot-text">' + (this.item.plot || 'No information available.') + '</p>' +
+            '<p class="plot-source">Source: <a href="' + this.item.wikipedia_url + '" class="external">Wikipedia</a></p>'
         );
 
-        if(aItem.trailer) {
-            $('a.trailer-link').attr('href', aItem.trailer);
+        if(this.item.trailer) {
+            $('a.trailer-link').attr('href', this.item.trailer);
         } else {
             $('.item-watch-trailer').remove();
         }
@@ -70,8 +72,7 @@ ScifiBot.page.item = new function() {
         $('.item-rate').remove();
         $('.item-similars').remove();
 
-        this.initInlineButtons(aItem);
-        ScifiBot.app.setNavbarTitle(ScifiBot.db.TYPE_NAMES[aItem.type][0]);
+        this.initInlineButtons(this.item);
     };
 
     this.refreshInlineButtons = function() {
@@ -104,5 +105,9 @@ ScifiBot.page.item = new function() {
 
         this.refreshInlineButtons();
         ScifiBot.app.updateExistingCards(theItem.id);
+    };
+
+    this.getNavbarTitle = function() {
+        return ScifiBot.db.TYPE_NAMES[this.item.type][0];
     };
 };

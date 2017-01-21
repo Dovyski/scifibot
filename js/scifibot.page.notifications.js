@@ -104,7 +104,9 @@ ScifiBot.page.notifications = new function() {
                 ScifiBot.db.save();
             }
         }
+    };
 
-        ScifiBot.app.setNavbarTitle('Notifications');
+    this.getNavbarTitle = function() {
+        return 'Notifications';
     };
 };

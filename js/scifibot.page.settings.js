@@ -46,7 +46,9 @@ ScifiBot.page.settings = new function() {
 
         this.updateSyncStatus();
         $('#settings-last-sync a').on('click', this.handleSyncNowLink);
+    };
 
-        ScifiBot.app.setNavbarTitle('Settings');
+    this.getNavbarTitle = function() {
+        return 'Settings';
     };
 };

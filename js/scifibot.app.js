@@ -9,7 +9,7 @@ ScifiBot.app = new function() {
     // List of pages/screens in the app.
     // They are indexed by id.
     this.pages = {
-        index: ScifiBot.page.index,
+        index: new ScifiBot.page.Index(),
         item: ScifiBot.page.item,
         rate: null,
         similar: null,
@@ -43,8 +43,23 @@ ScifiBot.app = new function() {
     };
 
     this.handlePageBack = function() {
-        this.views.main.router.back();
+        var aHistory = ScifiBot.app.views.main.history, aURL;
+
+        // Remove active page from the historic
+        aHistory.pop();
+
+        if(aHistory.length > 0) {
+            aUrl = aHistory[aHistory.length - 1];
+        }
+
+        // Jump to previous page
+        this.views.main.router.loadPage(aUrl ? aUrl : 'index.html');
         this.updateNavbar();
+
+        // Remove lasd added entry, otherwise it will
+        // be duplicated bacause loadPage() already
+        // added an entry. 
+        aHistory.pop();
     };
 
     this.updateNavbar = function() {
@@ -56,8 +71,6 @@ ScifiBot.app = new function() {
             $('#btn-menu').html('<i class="material-icons">arrow_back</i>');
             this.hideButtons(['btn-filter', 'btn-search']);
         }
-
-        this.setNavbarTitle(this.views.main.activePage.name);
     };
 
     this.setNavbarTitle = function(theString) {
