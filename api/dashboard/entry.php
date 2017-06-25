@@ -52,7 +52,8 @@
                     released = :released,
                     runtime = :runtime,
                     plot = :plot,
-                    wikipedia_url = :wikipedia_url,
+                    plot_source_name = :plot_source_name,
+                    plot_source_url = :plot_source_url,
                     teaser = :teaser,
                     imdb_rating = :imdb_rating,
                     imdb_url = :imdb_url,
@@ -80,7 +81,8 @@
                     released,
                     runtime,
                     plot,
-                    wikipedia_url,
+                    plot_source_name,
+                    plot_source_url,
                     teaser,
                     imdb_rating,
                     imdb_url,
@@ -101,7 +103,8 @@
                     :released,
                     :runtime,
                     :plot,
-                    :wikipedia_url,
+                    :plot_source_name,
+                    :plot_source_url,
                     :teaser,
                     :imdb_rating,
                     :imdb_url,
@@ -128,7 +131,8 @@
         $aStmt->bindParam(':released',                  $aEntry['released']);
         $aStmt->bindParam(':runtime',                   $aEntry['runtime']);
         $aStmt->bindParam(':plot',                      $aEntry['plot']);
-        $aStmt->bindParam(':wikipedia_url',             $aEntry['wikipedia_url']);
+        $aStmt->bindParam(':plot_source_name',          $aEntry['plot_source_name']);
+        $aStmt->bindParam(':plot_source_url',           $aEntry['plot_source_url']);
         $aStmt->bindParam(':teaser',                    $aEntry['teaser']);
         $aStmt->bindParam(':imdb_rating',               $aEntry['imdb_rating']);
         $aStmt->bindParam(':imdb_url',                  $aEntry['imdb_url']);

@@ -79,10 +79,24 @@
                                         <label>Plot</label>
                                         <textarea name="plot" class="form-control" rows="5"><?php echo @$aEntry['plot']; ?></textarea>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
                                     <div class="form-group">
-                                        <label>Wikipedia URL</label>
-                                        <input name="wikipedia_url" class="form-control" value="<?php echo @$aEntry['wikipedia_url']; ?>">
+                                        <label>Plot source name</label>
+                                        <input name="plot_source_name" class="form-control" value="<?php echo @$aEntry['plot_source_name']; ?>">
                                     </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label>Plot source URL</label>
+                                        <input name="plot_source_url" class="form-control" value="<?php echo @$aEntry['plot_source_url']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10">
                                     <div class="form-group">
                                         <label>Teaser image</label>
                                         <input name="teaser" class="form-control" placeholder="E.g. http://domain.com/image.jpg" value="<?php echo @$aEntry['teaser']; ?>">

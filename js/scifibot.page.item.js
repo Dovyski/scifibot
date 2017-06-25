@@ -56,7 +56,7 @@ ScifiBot.page.item = new function() {
         $('#item-block-content').html(
             this.renderRatings(this.item) +
             '<p class="plot-text">' + (this.item.plot || 'No information available.') + '</p>' +
-            '<p class="plot-source">Source: <a href="' + this.item.wikipedia_url + '" class="external">Wikipedia</a></p>'
+            '<p class="plot-source">Source: <a href="' + (this.item.plot_source_url || '#') + '" class="external">' + (this.item.plot_source_name || 'Unknown') + '</a></p>'
         );
 
         if(this.item.trailer) {
