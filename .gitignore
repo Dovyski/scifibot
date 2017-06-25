@@ -1,1 +1,3 @@
 /api/*.sqlite
+/build/cordova
+/build/dist
