@@ -5,6 +5,14 @@ ScifiBot.device = new function() {
     };
 
     this.showNotification = function(theTitle, theMessage, theData) {
+        if(ScifiBot.config.IS_CORDOVA) {
+            cordova.plugins.notification.local.schedule({
+                title: theTitle || "New Message",
+                message: theMessage || "Hi, are you ready? We are waiting."
+            });
+        } else {
+            alert('Hey!');
+        }
     };
 
     this.init = function(theCallback) {
