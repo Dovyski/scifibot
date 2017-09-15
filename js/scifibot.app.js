@@ -40,6 +40,9 @@ ScifiBot.app = new function() {
 
         this.core.init();
         this.initUI();
+
+        // Sync data using the web endpoint
+        setTimeout(ScifiBot.sync.onlineRun, 5000);
     };
 
     this.handlePageBack = function() {

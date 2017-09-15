@@ -27,7 +27,7 @@ ScifiBot.device.init(function() {
             }
         });
     }
-    
+
     // Initialize app and start the party \m/
     ScifiBot.app.init();
 });
