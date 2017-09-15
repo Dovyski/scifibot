@@ -33,9 +33,10 @@ echo Copying config files
 
 echo Copying distrubution assets
 
-echo Building APK
+echo Building APK (debug and release)
 cd cordova\scifibot\
 call cordova build
+call cordova build --release
 
 cd ..
 cd ..
