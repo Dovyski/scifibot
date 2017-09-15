@@ -85,8 +85,8 @@ ScifiBot.page.Index = function() {
                 '</div>';
         }
 
-        // Append new items
-        $('.index-content').append(aHtml);
+        // Clean page content then add rendered stuff
+        $('.index-content').empty().append(aHtml);
 
         // Updade visual elements of each card, e.g. "watched" badge.
         ScifiBot.app.updateExistingCards();
@@ -118,6 +118,12 @@ ScifiBot.page.Index = function() {
                 onClick: function () {
                     ScifiBot.app.titleToggleList(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
+
+                    // If we are running in "My list" mode, we must update the
+                    // page now that an item was added/removed from the list.
+                    if(ScifiBot.app.pages.index.myList) {
+                        ScifiBot.app.pages.index.loadItems();
+                    }
                 }
             },
             {
