@@ -6,6 +6,11 @@ ScifiBot.sync = new function() {
     this.handleNewContentNotifiation = function(theOldTitle, theNewTitle) {
         var aSettings = ScifiBot.app.settings();
 
+        if(!theNewTitle.active) {
+            // If the new title is not active, we dont make any fuzz about it
+            return;
+        }
+
         if(!theOldTitle) {
             // There is no previous entry for this title, it is a brand new
             // entry in the catalog /o/
@@ -19,6 +24,10 @@ ScifiBot.sync = new function() {
             if(ScifiBot.user.following(theNewTitle.id)) {
                 if(theNewTitle.released) {
                     ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_RELEASED, theNewTitle.id));
+                }
+
+                if(theNewTitle.trailer != '' && theOldTitle.trailer != theNewTitle.trailer) {
+                    ScifiBot.app.notifications.add(new ScifiBot.Notification(ScifiBot.Notification.TITLE_NEW_TRAILER, theNewTitle.id));
                 }
             }
         }

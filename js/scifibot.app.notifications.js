@@ -9,6 +9,7 @@ ScifiBot.Notification = function(theType, theTitleId, theTime) {
 
 ScifiBot.Notification.TITLE_ADDED = "titleAdded";
 ScifiBot.Notification.TITLE_RELEASED = "titleReleased";
+ScifiBot.Notification.TITLE_NEW_TRAILER = "titleNewTrailer";
 
 ScifiBot.app.notifications = new function() {
     this.nextId = function() {

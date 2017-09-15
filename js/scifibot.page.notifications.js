@@ -6,6 +6,7 @@ ScifiBot.page.notifications = new function() {
         switch(theNotificationType) {
             case ScifiBot.Notification.TITLE_ADDED: return 'new ' + ScifiBot.db.TYPE_NAMES[theTitle.type][0] + ' added to the catalog';
             case ScifiBot.Notification.TITLE_RELEASED: return 'has been released';
+            case ScifiBot.Notification.TITLE_NEW_TRAILER: return 'has a new trailer';
             default: '?';
         }
     };
