@@ -58,15 +58,15 @@ ScifiBot.app = new function() {
 
         // Remove lasd added entry, otherwise it will
         // be duplicated bacause loadPage() already
-        // added an entry. 
+        // added an entry.
         aHistory.pop();
     };
 
     this.updateNavbar = function() {
         if(this.views.main.activePage.name == "index") {
-            $('#btn-menu').html('<i class="material-icons">menu</i> <span class="notifications-count badge bg-red"></span>');
+            $('#btn-menu').html('<i class="material-icons">menu</i>');
+            this.updateNotificationBadges();
             this.showButtons(['btn-menu', 'btn-filter', 'btn-search']);
-
         } else {
             $('#btn-menu').html('<i class="material-icons">arrow_back</i>');
             this.hideButtons(['btn-filter', 'btn-search']);
@@ -225,9 +225,10 @@ ScifiBot.app = new function() {
         var aUnread = ScifiBot.app.notifications.unreadCount();
 
         if(aUnread > 0) {
-            $('.notifications-count').html(aUnread + '').css({visibility: 'visible'});
+            $('.notifications-count').html(aUnread + '');
+            $('.notifications-call').css({display: 'inline-block'});
         } else {
-            $('.notifications-count').css({visibility: 'hidden'});
+            $('.notifications-call').css({display: 'none'});
         }
     };
 };
