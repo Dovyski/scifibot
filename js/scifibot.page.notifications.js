@@ -13,7 +13,7 @@ ScifiBot.page.notifications = new function() {
     this.renderNotification = function(theNotification) {
         var aTitle = ScifiBot.db.fetch(theNotification.title);
 
-        if(!aTitle) {
+        if(!aTitle || !aTitle.active) {
             console.error('Unable to fetch title with id', theNotification.title);
             return '';
         }

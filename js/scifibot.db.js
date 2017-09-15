@@ -58,11 +58,13 @@ ScifiBot.db = new function() {
     };
 
     this.find = function(theFields) {
-        var aRet = {};
+        theFields = theFields || {};
+
         var aType = theFields['type'] || this.MOVIES;
+        var aRet = {};        
 
         for(var aId in this.data.titles) {
-            if(this.data.titles[aId].type == aType) {
+            if(this.data.titles[aId].type == aType && this.data.titles[aId].active) {
                 aRet[aId] = this.data.titles[aId];
             }
         }

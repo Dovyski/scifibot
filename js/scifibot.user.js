@@ -49,7 +49,17 @@ ScifiBot.user = new function() {
         };
 
         this.all = function() {
-            return ScifiBot.db.data.list;
+            var aRet = {};
+            var aList = ScifiBot.db.data.list;
+
+            for(var aId in aList) {
+                var aItem = ScifiBot.db.fetch(aId);
+                if(aItem.active) {
+                    aRet[aId] = aId;
+                }
+            }
+
+            return aRet;
         };
 
         this.toggle = function(theId) {
