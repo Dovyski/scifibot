@@ -2,15 +2,6 @@ var ScifiBot = ScifiBot || {};
 ScifiBot.page = ScifiBot.page || {};
 
 ScifiBot.page.notifications = new function() {
-    this.describeType = function(theNotificationType, theTitle) {
-        switch(theNotificationType) {
-            case ScifiBot.Notification.TITLE_ADDED: return 'new ' + ScifiBot.db.TYPE_NAMES[theTitle.type][0] + ' added to the catalog';
-            case ScifiBot.Notification.TITLE_RELEASED: return 'has been released';
-            case ScifiBot.Notification.TITLE_NEW_TRAILER: return 'has a new trailer';
-            default: '?';
-        }
-    };
-
     this.renderNotification = function(theNotification) {
         var aTitle = ScifiBot.db.fetch(theNotification.title);
 
@@ -27,7 +18,7 @@ ScifiBot.page.notifications = new function() {
                   '<div class="item-title-row">' +
                     '<div class="item-title">' + aTitle.name + '</div>' +
                   '</div>' +
-                  '<div class="item-text">' + this.describeType(theNotification.type, aTitle) + '</div>' +
+                  '<div class="item-text">' + ScifiBot.app.notifications.generateMessageFromType(theNotification.type, aTitle) + '</div>' +
                   '<div class="item-subtitle">' + new timeago().format(theNotification.time) + '</div>' +
                 '</div>' +
                 '<div class="item-after"><a href="#" class="item-link deleted" data-id="' + theNotification.id + '"><i class="material-icons">delete</i></a></div>' +

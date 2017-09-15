@@ -16,13 +16,31 @@ ScifiBot.app.notifications = new function() {
         return ScifiBot.db.data.notifications.id++;
     };
 
+    this.createDeviceNotification = function(theNotification) {
+        var aTitle = ScifiBot.db.fetch(theNotification.title);
+
+        if(!aTitle) {
+            console.error('ScifiBot.app.notifications.createDeviceNotification() - unable to fetch title with id ' + theNotification.title);
+            return;
+        }
+
+        var aMessage = ScifiBot.app.notifications.generateMessageFromType(theNotification.type, aTitle);
+        ScifiBot.device.showNotification(aTitle.name, aMessage, {titleId: theNotification.title});
+    };
+
     this.add = function(theNotification) {
+        var aSettings = ScifiBot.app.settings();
+
         theNotification.id = this.nextId();
 
         ScifiBot.db.data.notifications.entries.push(theNotification);
         ScifiBot.db.save();
 
         ScifiBot.app.updateNotificationBadges();
+
+        if(aSettings.useDeviceNotifications) {
+            ScifiBot.app.notifications.createDeviceNotification(theNotification);
+        }
 
         return theNotification;
     };
@@ -59,5 +77,14 @@ ScifiBot.app.notifications = new function() {
         }
 
         return aCount;
+    };
+
+    this.generateMessageFromType = function(theNotificationType, theTitle) {
+        switch(theNotificationType) {
+            case ScifiBot.Notification.TITLE_ADDED: return 'new ' + (theTitle ? ScifiBot.db.TYPE_NAMES[theTitle.type][0] : 'item') + ' added to the catalog';
+            case ScifiBot.Notification.TITLE_RELEASED: return 'has been released';
+            case ScifiBot.Notification.TITLE_NEW_TRAILER: return 'has a new trailer';
+            default: '?';
+        }
     };
 };

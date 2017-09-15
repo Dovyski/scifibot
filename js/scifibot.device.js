@@ -8,7 +8,8 @@ ScifiBot.device = new function() {
         if(ScifiBot.config.IS_CORDOVA) {
             cordova.plugins.notification.local.schedule({
                 title: theTitle || "New Message",
-                message: theMessage || "Hi, are you ready? We are waiting."
+                message: theMessage || "Hi, are you ready? We are waiting.",
+                data: theData
             });
         } else {
             alert('Hey!');
