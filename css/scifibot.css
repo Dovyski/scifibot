@@ -85,6 +85,10 @@
     opacity: 0.8;
 }
 
+.settings-checkbox-area {
+     padding-right: 10px;
+}
+
 .notification-item {
     background: #fff;
 }

@@ -40,7 +40,7 @@ call cordova build --release
 
 cd ..
 cd ..
-cp ./cordova/scifibot/platforms/android/build/outputs/apk/*.apk ./dist/
+xcopy .\cordova\scifibot\platforms\android\build\outputs\apk\*.apk .\dist\
 
 echo Done!
 echo Final APK file is in the "dist" folder.

@@ -1,11 +1,20 @@
 var ScifiBot = ScifiBot || {};
 
+// Controls if the app is running in a device or in the browser
+var runningOnDevice = true;
+
 ScifiBot.config = {
-    API_ENDPOINT: 'http://dev.local.com/scifibot/api/',
+    // How many chars to display in the plo text
     PLOT_SUMMARY_SIZE: 120,
 
     // Name of the database used to store app's data
     DATABASE_NAME: 'scifibot_data_20161230',
+
+    // Tell if the app is running on Cordova
+    IS_CORDOVA: runningOnDevice,
+
+    // API to be used by the app
+    API_ENDPOINT: runningOnDevice ? 'https://scifibot.loopyape.com/v1/api/' : 'http://dev.local.com/scifibot/api/',
 
     // Version of the database shipped along with the app.
     DATABASE_VERSION: 3,
