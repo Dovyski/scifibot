@@ -1,6 +1,8 @@
 var ScifiBot = ScifiBot || {};
 
 ScifiBot.sync = new function() {
+    this.onlineRunCallback = null;
+
     this.handleNewContentNotifiation = function(theOldTitle, theNewTitle) {
         var aSettings = ScifiBot.app.settings();
 
@@ -57,6 +59,16 @@ ScifiBot.sync = new function() {
         ScifiBot.db.save();
     };
 
+    this.handleSyncResponse = function(theData, theTimestamp) {
+        console.debug('ScifiBot.sync.handleSyncResponse()', theTimestamp, theData);
+
+        ScifiBot.sync.handleNewTitles(theData, theTimestamp);
+
+        if(ScifiBot.sync.onlineRunCallback) {
+            ScifiBot.sync.onlineRunCallback.call();
+        }
+    };
+
     // Performs a sync operation offline, using the data from ScifiBot.DATA
     // as a source of information.
     this.offlineRun = function() {
@@ -90,11 +102,12 @@ ScifiBot.sync = new function() {
     this.onlineRun = function(theCallback) {
         var aSince = ScifiBot.app.settings().syncModified || 0;
 
+        this.onlineRunCallback = theCallback;
         console.debug('ScifiBot.sync.onlineRun() - Starting online sync.', aSince);
 
         ScifiBot.api.invoke({
             method: 'sync',
             since: aSince,
-        }, theCallback);
+        }, ScifiBot.sync.handleSyncResponse);
     };
 };
