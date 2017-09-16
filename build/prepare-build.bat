@@ -20,12 +20,13 @@ cd cordova
 
 echo Creating cordova project
 call cordova create scifibot com.loopyape.scifibot ScifiBot
+
+echo Copying config.xml
+cp ..\config.xml scifibot\config.xml
+
+echo Preparing cordova stuff
 cd scifibot
-call cordova platforms add android
-call cordova plugin add cordova-plugin-device
-call cordova plugin add cordova-plugin-app-event
-call cordova plugin add cordova-plugin-local-notification
-call cordova plugin add cordova-plugin-dialogs
+call cordova prepare
 
 cd ..\..\
 chmod 777 -R cordova
