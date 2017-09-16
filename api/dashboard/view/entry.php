@@ -24,13 +24,13 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Entry info
+                        Entry info <a href="javascript:void(0)" id="json_tools" class="pull-right">JSON <i class="fa fa-wrench"></i></a>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="entry.php?id=<?php echo @$aEntry['id']; ?>" method="post">
                             <input name="id" type="hidden" value="<?php echo @$aEntry['id']; ?>">
                             <input name="data" type="hidden" value="1">
-                            <div class="row">
+                            <div class="row" id="json_tools_container" style="display:none;">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>JSON info</label>

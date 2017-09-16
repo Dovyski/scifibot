@@ -12,9 +12,11 @@ var SD = new function() {
             released: aData.Released,
             runtime: aData.Runtime.split(' ')[0],
             teaser: aData.Poster,
+            plot_source_url: 'http://www.imdb.com/title/' + aData.imdbID,
+            plot_source_name: 'IMDb',
             imdb_rating: aData.imdbRating,
-            metascore_rating: aData.Metascore,
-            plot_source_name: 'IMDb'
+            imdb_url: 'http://www.imdb.com/title/' + aData.imdbID,
+            metascore_rating: aData.Metascore
         }
 
         console.debug(aData);
@@ -42,6 +44,10 @@ var SD = new function() {
 
         $('input[name=teaser]').change(function() {
             SD.refreshTeaserImage();
+        });
+
+        $('#json_tools').click(function() {
+            $('#json_tools_container').slideToggle();
         });
     };
 }
