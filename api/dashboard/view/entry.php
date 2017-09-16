@@ -24,14 +24,14 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Entry info <a href="javascript:void(0)" id="json_tools" class="pull-right">JSON <i class="fa fa-wrench"></i></a>
+                        Entry info <a href="javascript:void(0)" id="json_tools" class="pull-right">Tools <i class="fa fa-wrench"></i></a>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="entry.php?id=<?php echo @$aEntry['id']; ?>" method="post">
                             <input name="id" type="hidden" value="<?php echo @$aEntry['id']; ?>">
                             <input name="data" type="hidden" value="1">
-                            <div class="row" id="json_tools_container" style="display:none;">
-                                <div class="col-lg-12">
+                            <div class="row" id="tools" style="display:none;">
+                                <div class="col-lg-10">
                                     <div class="form-group">
                                         <label>JSON info</label>
                                         <textarea name="json_source" id="json_source" class="form-control" rows="5"></textarea>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <img id="teaser_image" src="" style="width: 100%; height: auto;"/>
+                                    <img id="teaser_image" src="<?php echo @$aEntry['teaser']; ?>" style="width: 100%; height: auto;"/>
                                 </div>
                             </div>
                             <div class="row">

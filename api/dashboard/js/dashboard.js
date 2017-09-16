@@ -47,7 +47,7 @@ var SD = new function() {
         });
 
         $('#json_tools').click(function() {
-            $('#json_tools_container').slideToggle();
+            $('#tools').slideToggle();
         });
     };
 }
