@@ -38,11 +38,31 @@ ScifiBot.app = new function() {
         ScifiBot.db.load();
         ScifiBot.sync.offlineRun();
 
+        if(ScifiBot.config.IS_CORDOVA) {
+            this.registerEventListeners();
+        }
+
         this.core.init();
         this.initUI();
 
         // Sync data using the web endpoint
         setTimeout(ScifiBot.sync.onlineRun, 5000);
+    };
+
+    this.registerEventListeners = function() {
+        document.addEventListener('pause', this.onPause, false);
+        document.addEventListener('resume', this.onResume, false);
+        document.addEventListener('backbutton', this.onBackButton, false);
+    };
+
+    this.onPause = function() {
+    };
+
+    this.onResume = function() {
+    };
+
+    this.onBackButton = function() {
+        ScifiBot.app.handlePageBack();
     };
 
     this.handlePageBack = function() {
