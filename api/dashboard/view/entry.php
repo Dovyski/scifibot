@@ -24,14 +24,22 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Entry info
+                        Entry info <a href="javascript:void(0)" id="json_tools" class="pull-right">Tools <i class="fa fa-wrench"></i></a>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="entry.php?id=<?php echo @$aEntry['id']; ?>" method="post">
                             <input name="id" type="hidden" value="<?php echo @$aEntry['id']; ?>">
                             <input name="data" type="hidden" value="1">
+                            <div class="row" id="tools" style="display:none;">
+                                <div class="col-lg-10">
+                                    <div class="form-group">
+                                        <label>JSON info</label>
+                                        <textarea name="json_source" id="json_source" class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
-                                <div class="col-lg-8">
+                                <div class="col-lg-10">
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input name="name" class="form-control" value="<?php echo @$aEntry['name']; ?>">
@@ -48,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Publisher</label>
                                         <input name="publisher" class="form-control" value="<?php echo @$aEntry['publisher']; ?>">
@@ -80,15 +88,18 @@
                                         <textarea name="plot" class="form-control" rows="5"><?php echo @$aEntry['plot']; ?></textarea>
                                     </div>
                                 </div>
+                                <div class="col-lg-2">
+                                    <img id="teaser_image" src="<?php echo @$aEntry['teaser']; ?>" style="width: 100%; height: auto;"/>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-5">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Plot source name</label>
                                         <input name="plot_source_name" class="form-control" value="<?php echo @$aEntry['plot_source_name']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-lg-5">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Plot source URL</label>
                                         <input name="plot_source_url" class="form-control" value="<?php echo @$aEntry['plot_source_url']; ?>">
@@ -96,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-10">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Teaser image</label>
                                         <input name="teaser" class="form-control" placeholder="E.g. http://domain.com/image.jpg" value="<?php echo @$aEntry['teaser']; ?>">
@@ -108,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         <label>IMDb rating</label>
                                         <input name="imdb_rating" class="form-control" value="<?php echo @$aEntry['imdb_rating']; ?>">
@@ -122,13 +133,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         <label>Metascore rating</label>
                                         <input name="metascore_rating" class="form-control" value="<?php echo @$aEntry['metascore_rating']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-lg-7">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         <label>Metascore URL</label>
                                         <input name="metascore_url" class="form-control" value="<?php echo @$aEntry['metascore_url']; ?>">
@@ -136,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         <label>Rotten Tomatoes rating</label>
                                         <input name="rotten_tomatoes_rating" class="form-control" value="<?php echo @$aEntry['rotten_tomatoes_rating']; ?>">
@@ -188,5 +199,14 @@
     <?php } ?>
 </div>
 <!-- /#page-wrapper -->
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/dashboard.js"></script>
+
+<script>
+    $(function() {
+        SD.initEntryPage();
+    });
+</script>
 
 <?php require_once(dirname(__FILE__) . '/footer.php'); ?>
