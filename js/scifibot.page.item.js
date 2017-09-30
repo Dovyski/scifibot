@@ -12,7 +12,7 @@ ScifiBot.page.item = new function() {
         }
 
         if(theItem.metascore_rating) {
-            aHtml += '<a href="' + theItem.metascore_url + '"><li><img src="img/rating/metascore.png" class="rating-icon metascore" />' + theItem.metascore_rating + '%</li></a>';
+            aHtml += '<a href="' + theItem.metascore_url + '"><li><img src="img/rating/metascore.png" class="rating-icon metascore" />' + theItem.metascore_rating + '</li></a>';
         }
 
         if(theItem.rotten_tomatoes_rating) {
