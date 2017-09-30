@@ -145,6 +145,15 @@
     background-position: center;
 }
 
+.card-item-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.card-item-plot {
+
+}
+
 .plot-text {
 
 }
