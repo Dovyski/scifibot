@@ -1,7 +1,7 @@
 var ScifiBot = ScifiBot || {};
 
 // Controls if the app is running in a device or in the browser
-var runningOnDevice = true;
+var runningOnDevice = false;
 
 ScifiBot.config = {
     // How many chars to display in the plo text
@@ -21,7 +21,8 @@ ScifiBot.config = {
 
     // Default settings
     SETTINGS: {
-        sync: true,                     // should sync with the server
+        sync: false,                    // should sync with the server
+        syncOnStartup: true,            // should sync when the app starts
         notifyNewTitles: true,          // notify about titles added to the database
         notifyTrackedTitles: true,      // notify about news regarding tracked titles
         useDeviceNotifications: true,   // use Android notifications to broadcast app notifications.
