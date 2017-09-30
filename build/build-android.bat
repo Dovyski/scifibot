@@ -5,6 +5,8 @@ REM Usage:
 REM    build-android.bat               # build unsigned APKs
 REM    build-android.bat <password>    # <password> is a string with a password. Build signed APKs.
 
+SET PATH_APP_ICON_512=..\img\logo\scifibot-logo-512.png
+
 echo Removing old build files
 rm -rf ./dist/
 rm -rf ./cordova/scifibot/platforms/android/build/outputs/apk/*.apk
@@ -24,6 +26,16 @@ xcopy ..\css .\cordova\scifibot\www\css\ /E
 xcopy ..\fonts .\cordova\scifibot\www\fonts\ /E
 xcopy ..\img .\cordova\scifibot\www\img\ /E
 xcopy ..\js .\cordova\scifibot\www\js\ /E
+
+echo Creating app icons
+rm -rf ./cordova/scifibot/res/icon/android/*.png
+magick convert %PATH_APP_ICON_512% -resize 36x36 .\cordova\scifibot\res\icon\android\icon-36-ldpi.png
+magick convert %PATH_APP_ICON_512% -resize 48x48 .\cordova\scifibot\res\icon\android\icon-48-mdpi.png
+magick convert %PATH_APP_ICON_512% -resize 72x72 .\cordova\scifibot\res\icon\android\icon-72-hdpi.png
+magick convert %PATH_APP_ICON_512% -resize 96x96 .\cordova\scifibot\res\icon\android\icon-96-xhdpi.png
+magick convert %PATH_APP_ICON_512% -resize 144x144 .\cordova\scifibot\res\icon\android\icon-144-xxhdpi.png
+magick convert %PATH_APP_ICON_512% -resize 192x192 .\cordova\scifibot\res\icon\android\icon-192-xxxhdpi.png
+magick convert %PATH_APP_ICON_512% -resize 512x512 .\cordova\scifibot\res\icon\android\icon-512-play.png
 
 echo Adjusting permitions
 chmod 755 -R cordova
