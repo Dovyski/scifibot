@@ -114,7 +114,7 @@ ScifiBot.page.Index = function() {
 
         var aButtons = [
             {
-                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Remove from my list' : '<i class="material-icons">playlist_add</i> Add to my list',
+                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Remove from my list' : '<i class="material-icons">playlist_add</i> Add to my queue',
                 onClick: function () {
                     ScifiBot.app.titleToggleList(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
