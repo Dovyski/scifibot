@@ -44,6 +44,7 @@ echo Removing unecessary app files
 rm -rf ./cordova/scifibot/www/build
 rm -rf ./cordova/scifibot/www/api
 rm -rf ./cordova/scifibot/www/img/logo
+rm -rf ./cordova/scifibot/www/img/promo
 
 echo Copying config.xml
 cp config.xml ./cordova/scifibot/config.xml
