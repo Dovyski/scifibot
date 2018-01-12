@@ -226,12 +226,22 @@ div.watched {
     text-align: center;
 }
 
+.page-content.about-page .disclaimer {
+    font-size: 0.95em;
+    text-align: justify;
+}
+
 .page-content.about-page strong {
     font-size: 1.4em;
 }
 
 .page-content.about-page small {
     opacity: 0.8;
+}
+
+.page-content.about-page img {
+    width: 25%;
+    height: auto;
 }
 
 .main-menu {
