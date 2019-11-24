@@ -28,6 +28,7 @@ ScifiBot.config = {
         useDeviceNotifications: true,   // use Android notifications to broadcast app notifications.
         syncModified: 0,                // Most recent timestamp found in the database.
         lastSync: 0,                    // Timestamp of the last time the app performed a sync operation.
+        showRatings: false,             // if ratings, e.g. IMDb, should be displayed.
         databaseVersion: 1              // Version of the database in use by the app.
     }
 };
