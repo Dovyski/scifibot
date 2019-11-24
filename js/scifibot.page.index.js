@@ -114,7 +114,7 @@ ScifiBot.page.Index = function() {
 
         var aButtons = [
             {
-                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Remove from my list' : '<i class="material-icons">playlist_add</i> Add to my queue',
+                text: ScifiBot.user.list.has(aItemId) ? '<i class="material-icons">playlist_add_check</i> Remove from my queue' : '<i class="material-icons">playlist_add</i> Add to my queue',
                 onClick: function () {
                     ScifiBot.app.titleToggleList(ScifiBot.app.activeItem);
                     ScifiBot.app.activeItem = null;
@@ -198,6 +198,6 @@ ScifiBot.page.Index = function() {
     };
 
     this.getNavbarTitle = function() {
-        return this.myList? "My list" : ScifiBot.db.TYPE_NAMES[this.type][1];
+        return this.myList? "My queue" : ScifiBot.db.TYPE_NAMES[this.type][1];
     };
 };

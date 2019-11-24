@@ -1,11 +1,11 @@
 var ScifiBot = ScifiBot || {};
 
 // Controls if the app is running in a device or in the browser
-var runningOnDevice = false;
+var runningOnDevice = true;
 
 ScifiBot.config = {
     // How many chars to display in the plo text
-    PLOT_SUMMARY_SIZE: 120,
+    PLOT_SUMMARY_SIZE: 140,
 
     // Name of the database used to store app's data
     DATABASE_NAME: 'scifibot_data_20161230',
@@ -21,7 +21,7 @@ ScifiBot.config = {
 
     // Default settings
     SETTINGS: {
-        sync: false,                    // should sync with the server
+        sync: true,                     // should sync with the server
         syncOnStartup: true,            // should sync when the app starts
         notifyNewTitles: true,          // notify about titles added to the database
         notifyTrackedTitles: true,      // notify about news regarding tracked titles
